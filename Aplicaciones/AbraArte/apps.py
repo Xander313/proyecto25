@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class AbraarteConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'AbraArte'
+    name = 'Aplicaciones.AbraArte'
