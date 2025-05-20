@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'Aplicaciones.authentication',
     'Aplicaciones.home',
     'Aplicaciones.Inicio',
+    'Aplicaciones.Genero',
+    'Aplicaciones.Pelicula',
+
 
 ]
 
@@ -67,7 +70,7 @@ ROOT_URLCONF = 'proyecto25.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'Aplicaciones/templates')],  # Ruta global de plantillas
+        'DIRS': [os.path.join(BASE_DIR, 'Aplicaciones','templates')],  # Ruta global de plantillas
         'APP_DIRS': True,  # Busca plantillas en cada app (templates/<nombre_app>/)
         'OPTIONS': {
             'context_processors': [
