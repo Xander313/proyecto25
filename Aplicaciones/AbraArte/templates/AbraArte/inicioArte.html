@@ -1,0 +1,63 @@
+<script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: "CONFIRMACIÓN",
+            text: "¿Está seguro de eliminar esta obra de arte?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "eliminarArte/" + id;
+            }
+        });
+    }
+</script>
+
+<br>
+<h1 class="text-center">Listado de Obras de Arte</h1>
+<hr>
+
+<div class="row">
+    <div class="text-end">
+        <a href="nuevoArte" class="btn btn-outline-success text-right">
+            Agregar Obra de Arte
+        </a>
+    </div>
+</div>
+<br>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr class="bg-info">
+            <th>ID</th>
+            <th>TÍTULO</th>
+            <th>AUTOR</th>
+            <th>AÑO</th>
+            <th>ACCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for obra in obras %}
+            <tr>
+                <td>{{ obra.id }}</td>
+                <td>{{ obra.titulo }}</td>
+                <td>{{ obra.autor }}</td>
+                <td>{{ obra.anio }}</td>
+                <td>
+                    <a href="editarArte/{{ obra.id }}" class="btn btn-outline-warning">
+                        <i class="fa fa-pen"></i>
+                    </a>
+                    <a href="#" onclick="confirmDelete('{{ obra.id }}')" class="btn btn-outline-danger">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br><br><br><br><br><br>
+
