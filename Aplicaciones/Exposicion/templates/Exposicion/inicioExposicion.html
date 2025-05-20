@@ -1,0 +1,89 @@
+{% extends 'layouts/base.html' %}  <!-- Ruta relativa a la plantilla base -->
+
+{% block title %} Inicio Exposición {% endblock title %}
+
+<!-- CSS específico (opcional) -->
+{% block stylesheets %}
+  {{ block.super }}  <!-- Mantiene los CSS de la plantilla padre -->
+  <link rel="stylesheet" href="/static/assets/css/custom.css">  <!-- Ejemplo -->
+  <!-- Importación de SweetAlert2 -->
+{% endblock stylesheets %}
+
+{% block content %}
+
+<script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: "CONFIRMACIÓN",
+            text: "¿Está seguro de eliminar esta exposición?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "eliminarExposicion/" + id;
+            }
+        });
+    }
+</script>
+
+<br>
+<h1 class="text-center">Listado de Exposiciones</h1>
+<hr>
+
+<div class="row">
+    <div class="text-end">
+        <a href="nuevaExposicion" class="btn btn-outline-success text-right">
+            Agregar Exposición
+        </a>
+    </div>
+</div>
+<br>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr class="bg-info">
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>FECHA</th>
+            <th>SALA</th>
+            <th>OBRAS</th>
+            <th>ACCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for exposicion in exposiciones %}
+            <tr>
+                <td>{{ exposicion.id }}</td>
+                <td>{{ exposicion.nombre }}</td>
+                <td>{{ exposicion.fecha }}</td>
+                <td>{{ exposicion.sala }}</td>
+                <td>
+                    {% for obra in exposicion.obras.all %}
+                        {{ obra.titulo }} <br>
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{% url 'editarExposicion' exposicion.id %}" class="btn btn-outline-warning">
+                        <i class="fa fa-pen"></i>
+                    </a>
+                    <a href="#" onclick="confirmDelete('{{ exposicion.id }}')" class="btn btn-outline-danger">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br><br><br><br><br><br>
+
+{% endblock content %}
+
+<!-- JS específico (opcional) -->
+{% block javascripts %}
+  {{ block.super }}  <!-- Mantiene los JS de la plantilla padre -->
+  <script src="/static/assets/js/custom.js"></script>  <!-- Ejemplo -->
+{% endblock javascripts %}

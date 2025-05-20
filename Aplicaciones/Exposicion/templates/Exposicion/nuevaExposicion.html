@@ -1,0 +1,59 @@
+{% extends 'layouts/base.html' %}  <!-- Ruta relativa a la plantilla base -->
+
+{% block title %} Nueva Exposición {% endblock title %}
+
+<!-- CSS específico (opcional) -->
+{% block stylesheets %}
+  {{ block.super }}  <!-- Mantiene los CSS de la plantilla padre -->
+  <link rel="stylesheet" href="/static/assets/css/custom.css">  <!-- Ejemplo -->
+{% endblock stylesheets %}
+
+{% block content %}
+  <div class="row mt-4">
+      <div class="col-md-3"></div>
+      <div class="col-md-6 bg-light p-4 rounded shadow">
+          <h1 class="text-center mb-4">Nueva Exposición</h1>
+
+          <form action="{% url 'guardarExposicion' %}" method="post">
+              {% csrf_token %}
+
+              <div class="mb-3">
+                  <label for="nombre" class="form-label">Nombre de la Exposición</label>
+                  <input type="text" class="form-control" name="nombre" id="nombre" required>
+              </div>
+
+              <div class="mb-3">
+                  <label for="fecha" class="form-label">Fecha</label>
+                  <input type="date" class="form-control" name="fecha" id="fecha" required>
+              </div>
+
+              <div class="mb-3">
+                  <label for="sala" class="form-label">Sala</label>
+                  <input type="text" class="form-control" name="sala" id="sala" required>
+              </div>
+
+              <div class="mb-3">
+                  <label for="obras" class="form-label">Seleccionar Obras</label>
+                  <select class="form-select" name="obras" id="obras" multiple>
+                      {% for obra in obras %}
+                          <option value="{{ obra.id }}">{{ obra.titulo }}</option>
+                      {% endfor %}
+                  </select>
+                  <small class="text-muted">Mantén presionada la tecla CTRL (Windows) o CMD (Mac) para seleccionar múltiples obras.</small>
+              </div>
+
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                  <a href="{% url 'indexExposicion' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
+                  <button type="submit" class="btn btn-outline-success">Guardar Exposición <i class="fa-solid fa-floppy-disk"></i></button>
+              </div>
+          </form>
+      </div>
+      <div class="col-md-3"></div>
+  </div>
+{% endblock content %}
+
+<!-- JS específico (opcional) -->
+{% block javascripts %}
+  {{ block.super }}  <!-- Mantiene los JS de la plantilla padre -->
+  <script src="/static/assets/js/custom.js"></script>  <!-- Ejemplo -->
+{% endblock javascripts %}
