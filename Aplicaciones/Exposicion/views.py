@@ -12,7 +12,7 @@ def inicioExposicion(request):
 
 # Renderizar formulario para agregar una nueva exposición con las obras disponibles
 def nuevaExposicion(request):
-    obras = ObraArte.objects.all()  # Obtener todas las obras disponibles
+    obras = ObraArte.objects.all()  
     return render(request, "Exposicion/nuevaExposicion.html", {"obras": obras})
 
 # Almacenar datos de la exposición en la BD con selección de obras
@@ -21,10 +21,10 @@ def guardarExposicion(request):
         nombre = request.POST["nombre"]
         fecha = request.POST["fecha"]
         sala = request.POST["sala"]
-        obras_seleccionadas = request.POST.getlist("obras")  # Obtener lista de obras seleccionadas
+        obras_seleccionadas = request.POST.getlist("obras")  
 
         exposicion = Exposicion.objects.create(nombre=nombre, fecha=fecha, sala=sala)
-        exposicion.obras.set(obras_seleccionadas)  # Asociar obras seleccionadas a la exposición
+        exposicion.obras.set(obras_seleccionadas)  
         messages.success(request, "SE HA CREADO LA EXPOSICIÓN")
 
         return redirect('indexExposicion')
@@ -40,7 +40,7 @@ def eliminarExposicion(request, id):
 # Renderizar formulario de edición de exposición con obras asociadas
 def editarExposicion(request, id):
     exposicion = Exposicion.objects.get(id=id)
-    obras = ObraArte.objects.all()  # Obtener todas las obras disponibles
+    obras = ObraArte.objects.all()  
     obras_seleccionadas = exposicion.obras.all()  # Obtener las obras ya asociadas
 
     return render(
@@ -54,13 +54,13 @@ def procesarEdicionExposicion(request, id):
     nombre = request.POST["nombre"]
     fecha = request.POST["fecha"]
     sala = request.POST["sala"]
-    obras_seleccionadas = request.POST.getlist("obras")  # Obtener lista de obras seleccionadas
+    obras_seleccionadas = request.POST.getlist("obras")  
 
     exposicion = Exposicion.objects.get(id=id)
     exposicion.nombre = nombre
     exposicion.fecha = fecha
     exposicion.sala = sala
-    exposicion.obras.set(obras_seleccionadas)  # Actualizar la relación con las obras
+    exposicion.obras.set(obras_seleccionadas)  
     exposicion.save()
     messages.success(request, "SE HA EDITADO LA EXPOSICIÓN")
 
