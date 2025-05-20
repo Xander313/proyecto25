@@ -39,8 +39,8 @@
 
 <div class="row">
     <div class="text-end">
-        <a href="{% 'Genero' %}" class="btn btn-outline-success text-right">
-            Agregar Genero <i class=" fa fa-pen"></i>
+        <a href="{% 'Pelicula' %}" class="btn btn-outline-success text-right">
+            Agregar Pelicula <i class=" fa fa-pen"></i>
         </a>
     </div>
 </div>
@@ -49,24 +49,24 @@
 <table class="table table-bordered table-striped table-hover">
     <thead>
         <tr class="bg-info">
-            <th>nombre</th>
-            <th>descripcion</th>
-            <th>ejemplares</th>
-            <th>AÑO origen</th>
+            <th>titulo</th>
             <th>autor</th>
+            <th>AÑO</th>
+            <th>genero</th>
+            <th>presupuesto</th>
         </tr>
     </thead>
     <tbody>
         {% for obra in obras %}
             <tr>
-                <td>{{ obra.nombre }}</td>
-                <td>{{ obra.descripcion }}</td>
-                <td>{{ obra.ejemplares }}</td>
-                <td>{{ obra.aorigen }}</td>
+                <td>{{ obra.titulo }}</td>
                 <td>{{ obra.autor }}</td>
+                <td>{{ obra.anio }}</td>
+                <td>{{ obra.genero }}</td>
+                <td>{{ obra.presupuesto }}</td>
 
                 <td>
-                    <a href="{% url 'editarGenero' obra.id %}" class="btn btn-outline-warning">
+                    <a href="{% url 'editarPelicula' obra.id %}" class="btn btn-outline-warning">
                         <i class="fa fa-pen"></i>
                     </a>
                     <a href="#" onclick="confirmDelete('{{ obra.id }}')" class="btn btn-outline-danger">

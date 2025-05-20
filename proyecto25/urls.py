@@ -10,6 +10,6 @@ urlpatterns = [
     path('Reserva/', include('Aplicaciones.Reserva.urls')),
     path('Visitante/', include('Aplicaciones.Visitante.urls')),
     path('Generos/', include('Aplicaciones.Genero.urls')),
-    #path('Peliculas/', include('Aplicaciones.Pelicula.urls')),
+    path('Peliculas/', include('Aplicaciones.Pelicula.urls')),
 
 ]
