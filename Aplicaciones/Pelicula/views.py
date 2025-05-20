@@ -9,7 +9,7 @@ from django.contrib import messages
 
 def inicioPelicula(request):
     listadoObras = Pelicula.objects.all()
-    return render(request, 'Pelicula/iniciPelicula.html', {'obras': listadoObras})
+    return render(request, 'inicioPelicula.html', {'obras': listadoObras})
 
 
 
@@ -58,7 +58,7 @@ def procesarEdicionPelicula(request, id):
     obra.presupuesto = presupuesto
     obra.autor = autor
     obra.save()
-    messages.success(request, "SE HA EDITADO EL GENERO" )
+    messages.success(request, "SE HA EDITADO la pelicula" )
 
 
     return redirect('indexGenero')

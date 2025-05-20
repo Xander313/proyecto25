@@ -4,7 +4,7 @@ from django.contrib import messages
 
 def inicioGenero(request):
     listadoObras = Genero.objects.all()
-    return render(request, 'Genero/iniciGenero.html', {'obras': listadoObras})
+    return render(request, 'inicioGenero.html', {'obras': listadoObras})
 
 
 
@@ -12,7 +12,7 @@ def inicioGenero(request):
 
 
 def nuevaGenero(request):
-    return render(request, "Genero/nuevoGenero.html.html")
+    return render(request, "nuevoGenero.html")
 
 
 def eliminarGenero(request, id):
@@ -24,11 +24,15 @@ def eliminarGenero(request, id):
 
 
 
-
-
 def editarGenero(request, id):
     obra = Genero.objects.get(id=id)
-    return render(request, "Genero/editarGenero.html", {'obra': obra})
+    return render(request, "editarGenero.html", {'obra': obra})
+
+
+
+
+
+
 
 
 def procesarEdicionGenero(request, id):
@@ -57,6 +61,19 @@ def procesarEdicionGenero(request, id):
 
 
 
+def guardarGenero(request):
+    if request.method == "POST":
+        nombre = request.POST["nombre"]
+        descipcion = request.POST["descipcion"]
+        ejemplares = request.POST["ejemplares"]
+        aorigen = request.POST["aorigen"]
+        autor = request.POST["autor"]
+
+        Genero.objects.create(descipcion=descipcion, nombre=nombre, autor=autor, ejemplares=ejemplares, aorigen=aorigen)
+        messages.success(request, "SE HA guardado el genero" )
+
+        return redirect('indexGenero')
+    return redirect('indexGenero')  
 
 
 
