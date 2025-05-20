@@ -25,7 +25,7 @@
 
             <div class="mb-3">
                 <label for="fecha" class="form-label">Fecha</label>
-                <input type="date" class="form-control" name="fecha" id="fecha" value="{{ exposicion.fecha }}" required>
+                <input type="date" class="form-control" name="fecha" id="fecha" value="{{ exposicion.fecha|date:'Y-m-d' }}" required>
             </div>
 
             <div class="mb-3">
