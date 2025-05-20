@@ -45,7 +45,7 @@
           {% for e in exposiciones %}
             <option value="{{ e.id }}"
               {% if e.id == reserva.exposicion.id %}selected{% endif %}>
-              {{ e.titulo }}
+              {{ e.nombre }}
             </option>
           {% endfor %}
         </select>
