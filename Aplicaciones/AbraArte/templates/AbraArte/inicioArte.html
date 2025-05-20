@@ -1,3 +1,17 @@
+{% extends 'layouts/base.html' %}  <!-- Ruta relativa a la plantilla base -->
+
+{% block title %} Inicio AbraArte {% endblock title %}
+
+<!-- CSS específico (opcional) -->
+{% block stylesheets %}
+  {{ block.super }}  <!-- Mantiene los CSS de la plantilla padre -->
+  <link rel="stylesheet" href="/static/assets/css/custom.css">  <!-- Ejemplo -->
+{% endblock stylesheets %}
+
+
+
+{% block content %}
+
 <script>
     function confirmDelete(id) {
         Swal.fire({
@@ -61,3 +75,11 @@
 </table>
 <br><br><br><br><br><br>
 
+
+{% endblock content %}
+
+<!-- JS específico (opcional) -->
+{% block javascripts %}
+  {{ block.super }}  <!-- Mantiene los JS de la plantilla padre -->
+  <script src="/static/assets/js/custom.js"></script>  <!-- Ejemplo -->
+{% endblock javascripts %}

@@ -4,7 +4,7 @@ from .models import ObraArte
 # Renderizar listado de obras de arte
 def inicioArte(request):
     listadoObras = ObraArte.objects.all()
-    return render(request, "ObraArte/inicioArte.html", {'obras': listadoObras})
+    return render(request, "AbraArte/inicioArte.html", {'obras': listadoObras})
 
 # Renderizar formulario para agregar una nueva obra de arte
 def nuevaArte(request):
