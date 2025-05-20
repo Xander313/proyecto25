@@ -35,6 +35,7 @@
   <!-- Page plugins -->
   <!-- Argon CSS -->
   <link rel="stylesheet" href="/static/assets/css/argon.css?v=1.2.0" type="text/css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!-- Specific CSS goes HERE -->
   {% block stylesheets %}{% endblock stylesheets %}
@@ -57,6 +58,21 @@
 
   <!-- Specific JS goes HERE --> 
   {% block javascripts %}{% endblock javascripts %}
+
+
+
+    {% if messages %}
+      {% for message in messages %}
+        <script>
+          Swal.fire({
+            title: "{% if message.tags == 'error' %}¡ERROR!{% else %}¡ÉXITO!{% endif %}",
+            text: "{{ message }}",
+            icon: "{% if message.tags == 'error' %}error{% else %}success{% endif %}"
+          });
+        </script>
+      {% endfor %}
+    {% endif %}
+
 
   <script src="/static/assets/js/argon.js?v=1.2.0"></script>
 
