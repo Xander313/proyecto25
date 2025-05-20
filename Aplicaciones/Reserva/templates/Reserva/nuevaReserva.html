@@ -40,7 +40,7 @@
                 <select class="form-select" name="exposicion" id="exposicion" required>
                     <option value="">Seleccione una exposición</option>
                     {% for e in exposiciones %}
-                        <option value="{{ e.id }}">{{ e.titulo }}</option>
+                        <option value="{{ e.id }}">{{ e.nombre }}</option>
                     {% endfor %}
                 </select>
             </div>

@@ -62,7 +62,7 @@
             <tr>
                 <td>{{ reserva.id }}</td>
                 <td>{{ reserva.visitante.nombre }}</td>
-                <td>{{ reserva.exposicion.titulo }}</td>
+                <td>{{ reserva.exposicion.nombre }}</td>
                 <td>{{ reserva.fecha_reserva|date:"d/m/Y H:i" }}</td>
                 <td>
                     <a href="{% url 'editarReserva' reserva.id %}" class="btn btn-outline-warning">

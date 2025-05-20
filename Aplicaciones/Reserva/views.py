@@ -36,3 +36,37 @@ def guardarReserva(request):
         return redirect('indexReserva')
     
     return redirect('indexReserva')
+
+
+def eliminarReserva(request, id):
+    obraEliminar = Reserva.objects.get(id=id)
+    obraEliminar.delete()
+    messages.success(request, "SE HA ELIMINADO LA RESERVA" )
+    return redirect('indexReserva')
+
+
+
+def editarReserva(request, id):
+    reserva = Reserva.objects.get(id=id)
+    visitantes = Visitante.objects.all()
+    exposiciones = Exposicion.objects.all()
+    return render(request, "Reserva/editarReserva.html", {
+        'reserva': reserva,
+        'visitantes': visitantes,
+        'exposiciones': exposiciones
+    })
+
+
+
+def procesarEdicionReserva(request, id):
+    if request.method == "POST":
+        visitante = Visitante.objects.get(id=request.POST['visitante'])
+        exposicion = Exposicion.objects.get(id=request.POST['exposicion'])
+
+        reserva = Reserva.objects.get(id=id)
+        reserva.visitante = visitante
+        reserva.exposicion = exposicion
+        reserva.save()
+
+        messages.success(request, "¡Reserva actualizada correctamente!")
+    return redirect('indexReserva')
