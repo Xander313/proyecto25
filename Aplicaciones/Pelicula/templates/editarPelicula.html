@@ -15,28 +15,48 @@
     <div class="col-md-6 bg-light p-4 rounded shadow">
         <h1 class="text-center mb-4">Editar Obra de Arte</h1>
 
-        <form action="{% url 'procesarEdicionArte' obra.id %}" method="post">
+        <form action="{% url 'procesarEdicionPelicula' obra.id %}" method="post">
             {% csrf_token %}
 
-            <div class="mb-3">
-                <label for="titulo" class="form-label">Título</label>
-                <input type="text" class="form-control" name="titulo" id="titulo" value="{{ obra.titulo }}" required>
-            </div>
+              <div class="mb-3">
+                  <label for="titulo" class="form-label">Título</label>
+                  <input type="text" class="form-control" value="{{ obra.titulo}}" name="titulo" id="titulo" required>
+              </div>
+
+              <div class="mb-3">
+                  <label for="autor" class="form-label">Autor</label>
+                  <input type="text" class="form-control" value="{{ obra.autor}}" name="autor" id="autor" required>
+              </div>
+                  <div class="mb-3">
+                  <label for="anio" class="form-label">Año</label>
+                  <input type="number" class="form-control" value="{{ obra.anio}}" name="anio" id="anio" required>
+              </div>
+
 
             <div class="mb-3">
-                <label for="autor" class="form-label">Autor</label>
-                <input type="text" class="form-control" name="autor" id="autor" value="{{ obra.autor }}" required>
+                <label for="exposicion" class="form-label">Genero</label>
+                <select class="form-select" name="genero" id="genero" required>
+                    <option value="">Seleccione un genero</option>
+                        {% for e in genero %}
+                            <option value="{{ e.id }}"
+                            {% if e.id == Pelicula.Genero.id %}selected{% endif %}>
+                            {{ e.nombre }}
+                            </option>
+                        {% endfor %}
+                </select>
             </div>
 
-            <div class="mb-3">
-                <label for="anio" class="form-label">Año</label>
-                <input type="number" class="form-control" name="anio" id="anio" value="{{ obra.anio }}" required>
-            </div>
+              
+                  <div class="mb-3">
+                  <label for="anio" class="form-label">Presupuesto</label>
+                  <input type="number" class="form-control" value="{{ obra.presupuesto}}" name="presupuesto" id="presupuesto" required>
+                </div>
 
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                <a href="{% url 'obraArte' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
-                <button type="submit" class="btn btn-outline-primary">Actualizar Obra <i class="fa-solid fa-pen-to-square"></i></button>
-            </div>
+
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                  <a href="{% url 'Pelicula' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
+                  <button type="submit" class="btn btn-outline-success">Guardar  <i class="fa-solid fa-floppy-disk"></i></button>
+              </div>
         </form>
     </div>
     <div class="col-md-3"></div>

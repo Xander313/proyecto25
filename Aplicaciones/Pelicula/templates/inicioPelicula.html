@@ -27,7 +27,7 @@
             cancelButtonText: "Cancelar"
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "eliminarGenero/"+id;
+                window.location.href = "eliminarPelicula/"+id;
             }
         });
     }
@@ -39,7 +39,7 @@
 
 <div class="row">
     <div class="text-end">
-        <a href="{% url 'Pelicula}" class="btn btn-outline-success text-right">
+        <a href="{% url 'Pelicula' %}" class="btn btn-outline-success text-right">
             Agregar Pelicula <i class=" fa fa-pen"></i>
         </a>
     </div>
@@ -54,6 +54,8 @@
             <th>AÑO</th>
             <th>genero</th>
             <th>presupuesto</th>
+            <th>accioines</th>
+
         </tr>
     </thead>
     <tbody>
@@ -62,7 +64,7 @@
                 <td>{{ obra.titulo }}</td>
                 <td>{{ obra.autor }}</td>
                 <td>{{ obra.anio }}</td>
-                <td>{{ obra.genero }}</td>
+                <td>{{ obra.genero.nombre }}</td>
                 <td>{{ obra.presupuesto }}</td>
 
                 <td>

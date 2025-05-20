@@ -43,7 +43,6 @@ def procesarEdicionGenero(request, id):
     autor = request.POST["autor"]
 
 
-
     obra = Genero.objects.get(id=id)
     obra.nombre = nombre
     obra.descipcion = descipcion

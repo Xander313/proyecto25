@@ -38,7 +38,7 @@
             <div class="mb-3">
                 <label for="exposicion" class="form-label">Exposición</label>
                 <select class="form-select" name="exposicion" id="exposicion" required>
-                    <option value="">Seleccione una exposición</option>
+                    <option value="exposicion">Seleccione una exposición</option>
                     {% for e in exposiciones %}
                         <option value="{{ e.id }}">{{ e.nombre }}</option>
                     {% endfor %}

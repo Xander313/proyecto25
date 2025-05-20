@@ -11,22 +11,55 @@ def inicioPelicula(request):
     listadoObras = Pelicula.objects.all()
     return render(request, 'inicioPelicula.html', {'obras': listadoObras})
 
+def guardarPelicula(request):
+    if request.method == "POST":
+
+
+        titulo = request.POST["titulo"]
+        autor = request.POST["autor"]
+        anio = request.POST["anio"]
+        generoid = request.POST["genero"]
+        presupuesto = request.POST["presupuesto"]
+        genero = Genero.objects.get(id=generoid)
+
+        Pelicula.objects.create(
+            titulo=titulo,
+            autor=autor,
+            anio=anio,
+            genero=genero,
+            presupuesto=presupuesto
+
+        )
+
+
+
+
+        messages.success(request, "pelicula creada exitosamente!")
+        return redirect('indexPelicula')
+    
+    return redirect('indexPelicula')
+
+
+
+
 
 
 def nuevaPelicula(request):
-
-    genreos = Pelicula.objects.all()
-    
-    return render(request, "Reserva/nuevaReserva.html", {
+    genreos = Genero.objects.all()
+    return render(request, "nuevoPelicula.html", {
         'genero': genreos,
     })
+
+
+
+
 
 
 def eliminarPelicula(request, id):
     obraEliminar = Pelicula.objects.get(id=id)
     obraEliminar.delete()
-    messages.success(request, "SE HA ELIMINADO el genero" )
-    return redirect('indexGenero')
+    messages.success(request, "SE HA ELIMINADO pelicula ")
+    return redirect('indexPelicula')
 
 
 
@@ -36,18 +69,19 @@ def eliminarPelicula(request, id):
 def editarPelicula(request, id):
     obra = Pelicula.objects.get(id=id)
     genero = Genero.objects.all()
-    return render(request, "Reserva/editarReserva.html", {
-        'reserva': obra,
+    return render(request, "editarPelicula.html", {
+        'obra': obra,
         'genero': genero})
 
 
 
 def procesarEdicionPelicula(request, id):
+
     titulo = request.POST["titulo"]
     autor = request.POST["autor"]
     anio = request.POST["anio"]
-    genero = Genero.objects.get(id=request.POST["genero"])
-
+    generoid=request.POST["genero"]
+    genero = Genero.objects.get(id=generoid)
     presupuesto = request.POST["presupuesto"]
 
 
@@ -61,7 +95,7 @@ def procesarEdicionPelicula(request, id):
     messages.success(request, "SE HA EDITADO la pelicula" )
 
 
-    return redirect('indexGenero')
+    return redirect('indexPelicula')
 
 
 
