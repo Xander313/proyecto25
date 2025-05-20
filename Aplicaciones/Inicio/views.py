@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def indexMuseo(request):
+    return render(request, "Inicio/indexMuseo.html")

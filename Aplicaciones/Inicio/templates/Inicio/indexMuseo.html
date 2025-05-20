@@ -1,0 +1,51 @@
+{% extends 'layouts/base.html' %}  <!-- Usa la plantilla base del museo -->
+
+{% block title %} Bienvenido al Museo de Quito {% endblock title %}
+
+<!-- CSS específico (opcional) -->
+{% block stylesheets %}
+  {{ block.super }}  <!-- Mantiene los estilos generales -->
+  <link rel="stylesheet" href="/static/assets/css/museo.css">  <!-- Archivo CSS específico -->
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1 class="display-4">¡Bienvenido al Museo de Quito! 🏛️</h1>
+    <p class="lead">Descubre el arte, la historia y la cultura de nuestra ciudad en un solo lugar.</p>
+    <hr>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <img src="https://img.freepik.com/vector-premium/diseno-ilustraciones-vectoriales-iconos-museos_861234-3791.jpg" class="img-fluid rounded shadow" alt="Museo de Quito">
+        </div>
+        <div class="col-md-6 text-start">
+            <h2>🌟 ¿Qué encontrarás en nuestro museo?</h2>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">🏺 Exposiciones de arte y arqueología</li>
+                <li class="list-group-item">📜 Colecciones históricas y patrimoniales</li>
+                <li class="list-group-item">🎨 Obras de artistas ecuatorianos reconocidos</li>
+                <li class="list-group-item">👩‍🏫 Talleres educativos y visitas guiadas</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <a href="{% url 'indexExposicion' %}" class="btn btn-outline-primary btn-lg">
+            Explorar Exposiciones <i class="fa-solid fa-landmark"></i>
+        </a>
+        <a href="{% url 'indexVisitante' %}" class="btn btn-outline-success btn-lg">
+            Reservar Visita <i class="fa-solid fa-calendar-check"></i>
+        </a>
+    </div>
+
+    <footer class="mt-5 text-muted">
+        <p>📍 Ubicado en el corazón de Quito | Horario: Lunes a Domingo, 9 AM - 6 PM</p>
+    </footer>
+</div>
+{% endblock content %}
+
+<!-- JS específico (opcional) -->
+{% block javascripts %}
+  {{ block.super }}  <!-- Mantiene los JS de la plantilla padre -->
+  <script src="/static/assets/js/museo.js"></script>  <!-- Archivo JS específico -->
+{% endblock javascripts %}

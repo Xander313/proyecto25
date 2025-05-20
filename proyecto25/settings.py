@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'Aplicaciones.Visitante',
     'Aplicaciones.authentication',
     'Aplicaciones.home',
+    'Aplicaciones.Inicio',
 
 ]
 
