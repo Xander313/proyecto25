@@ -39,7 +39,7 @@
                     <option value="">Seleccione un genero</option>
                         {% for e in genero %}
                             <option value="{{ e.id }}"
-                            {% if e.id == Pelicula.Genero.id %}selected{% endif %}>
+                            {% if e.id == pelicula.genero.id %}selected{% endif %}>
                             {{ e.nombre }}
                             </option>
                         {% endfor %}

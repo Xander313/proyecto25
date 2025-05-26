@@ -11,6 +11,8 @@ def inicioPelicula(request):
     listadoObras = Pelicula.objects.all()
     return render(request, 'inicioPelicula.html', {'obras': listadoObras})
 
+
+
 def guardarPelicula(request):
     if request.method == "POST":
 
@@ -18,8 +20,16 @@ def guardarPelicula(request):
         titulo = request.POST["titulo"]
         autor = request.POST["autor"]
         anio = request.POST["anio"]
+
+
+
         generoid = request.POST["genero"]
+
+
+
         presupuesto = request.POST["presupuesto"]
+
+        
         genero = Genero.objects.get(id=generoid)
 
         Pelicula.objects.create(
@@ -38,7 +48,6 @@ def guardarPelicula(request):
         return redirect('indexPelicula')
     
     return redirect('indexPelicula')
-
 
 
 
