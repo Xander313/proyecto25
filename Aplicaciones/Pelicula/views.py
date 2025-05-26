@@ -78,9 +78,12 @@ def eliminarPelicula(request, id):
 def editarPelicula(request, id):
     obra = Pelicula.objects.get(id=id)
     genero = Genero.objects.all()
+    presup = obra.presupuesto
+    print(presup)
     return render(request, "editarPelicula.html", {
         'obra': obra,
-        'genero': genero})
+        'genero': genero,
+        'presformat': str(presup)})
 
 
 

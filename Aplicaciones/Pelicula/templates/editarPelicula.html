@@ -15,7 +15,7 @@
     <div class="col-md-6 bg-light p-4 rounded shadow">
         <h1 class="text-center mb-4">Editar Obra de Arte</h1>
 
-        <form action="{% url 'procesarEdicionPelicula' obra.id %}" method="post">
+        <form action="{% url 'procesarEdicionPelicula' obra.id %}" id="formEditarPelicula" method="post">
             {% csrf_token %}
 
               <div class="mb-3">
@@ -39,31 +39,30 @@
                     <option value="">Seleccione un genero</option>
                         {% for e in genero %}
                             <option value="{{ e.id }}"
-                            {% if e.id == pelicula.genero.id %}selected{% endif %}>
+                            {% if e.id == obra.genero.id %}selected{% endif %}>
                             {{ e.nombre }}
                             </option>
                         {% endfor %}
                 </select>
             </div>
 
-              
-                  <div class="mb-3">
-                  <label for="anio" class="form-label">Presupuesto</label>
-                  <input type="number" class="form-control" value="{{ obra.presupuesto}}" name="presupuesto" id="presupuesto" required>
-                </div>
+            <div class="mb-3">
+                <label for="anio" class="form-label">Presupuesto</label>
+                <input type="text" class="form-control" value="{{ presformat }}" name="presupuesto" id="presupuesto" required>
+            </div>
 
 
-              <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                  <a href="{% url 'Pelicula' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
-                  <button type="submit" class="btn btn-outline-success">Guardar  <i class="fa-solid fa-floppy-disk"></i></button>
-              </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                <a href="{% url 'Pelicula' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
+                <button type="submit" class="btn btn-outline-success">Guardar  <i class="fa-solid fa-floppy-disk"></i></button>
+            </div>
         </form>
     </div>
     <div class="col-md-3"></div>
 </div>
 
 <script>
-    $("#formGuardarPelicula").validate({
+    $("#formEditarPelicula").validate({
         rules:{
             titulo:{
                 required:true,
