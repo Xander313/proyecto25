@@ -15,32 +15,80 @@
     <div class="col-md-6 bg-light p-4 rounded shadow">
         <h1 class="text-center mb-4">Editar Obra de Arte</h1>
 
-        <form action="{% url 'procesarEdicionArte' obra.id %}" method="post">
+        <form action="{% url 'procesarEdicionArte' obra.id %}" id="formEditarArte" method="post">
             {% csrf_token %}
 
             <div class="mb-3">
-                <label for="titulo" class="form-label">Título</label>
+                <label for="titulo" class="form-label">Título de la obra: </label>
                 <input type="text" class="form-control" name="titulo" id="titulo" value="{{ obra.titulo }}" required>
             </div>
 
             <div class="mb-3">
-                <label for="autor" class="form-label">Autor</label>
+                <label for="autor" class="form-label">Autor de la obra: </label>
                 <input type="text" class="form-control" name="autor" id="autor" value="{{ obra.autor }}" required>
             </div>
 
             <div class="mb-3">
-                <label for="anio" class="form-label">Año</label>
+                <label for="anio" class="form-label">Año de creación: </label>
                 <input type="number" class="form-control" name="anio" id="anio" value="{{ obra.anio }}" required>
             </div>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                <a href="{% url 'obraArte' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
+                <a href="{% url 'indexArte' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
                 <button type="submit" class="btn btn-outline-primary">Actualizar Obra <i class="fa-solid fa-pen-to-square"></i></button>
             </div>
         </form>
     </div>
     <div class="col-md-3"></div>
 </div>
+
+<script>
+    $("#formEditarArte").validate({
+        rules:{
+            titulo:{
+                required:true,
+                minlength:4,
+                maxlength:100
+            },
+            autor:{
+                required:true,
+                minlength:5,
+                maxlength:100
+
+            },
+            anio:{
+                required:true,
+                number:true,
+                min:1000,
+                max:2025
+                
+            }
+        },
+        messages:{
+            titulo:{
+                required:"El titulo de la obra de arte es requerido",
+                minlength:"El titulo de la obra de arte no puede tener menos de 4 letras",
+                maxlength:"El titulo de la obra de arte no puede tener mas de 100 letras"
+            },
+            autor:{
+                required:"El autor de la obra de arte es requerido",
+                minlength:"El autor de la obra de arte no puede tener menos de 5 letras",
+                maxlength:"El autor de la obra de arte no puede tener mas de 100 letras"
+            },
+            anio:{
+                required: "El año de la obra de arte es requerido",
+                number: "El año de la obra de arte debe ser unicamente de valores numéricos",
+                min: "El año de la obra de arte no puede ser menor al año 1000",
+                max: "El año de la obra de arte no puede ser mayor al año actual (2025)",
+            }
+        }
+    
+    });
+    
+</script>
+
+
+
 
 {% endblock content %}
 
