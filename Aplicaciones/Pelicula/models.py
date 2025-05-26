@@ -7,7 +7,7 @@ class Pelicula(models.Model):
     autor = models.CharField(max_length=255)
     anio = models.IntegerField()
     genero = models.ForeignKey(Genero, on_delete=models.CASCADE)
-    presupuesto = models.CharField()
+    presupuesto = models.DecimalField(max_digits=10, decimal_places=2)
 
 
     def _str_(self):

@@ -6,7 +6,7 @@ from Aplicaciones.Exposicion.models import Exposicion
 class Reserva(models.Model):
     visitante = models.ForeignKey(Visitante, on_delete=models.CASCADE)  
     exposicion = models.ForeignKey(Exposicion, on_delete=models.CASCADE)  
-    fecha_reserva = models.DateTimeField(auto_now_add=True)
+    fecha_reserva = models.DateTimeField()
     observaciones = models.TextField(default="")
 
     def _str_(self):

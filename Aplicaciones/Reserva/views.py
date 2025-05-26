@@ -66,10 +66,15 @@ def procesarEdicionReserva(request, id):
     if request.method == "POST":
         visitante = Visitante.objects.get(id=request.POST['visitante'])
         exposicion = Exposicion.objects.get(id=request.POST['exposicion'])
+        observaciones = request.POST["observaciones"]
+        fecha = request.POST["fecha"]
+
 
         reserva = Reserva.objects.get(id=id)
         reserva.visitante = visitante
         reserva.exposicion = exposicion
+        reserva.fecha_reserva = fecha
+        reserva.observaciones = observaciones
         reserva.save()
 
         messages.success(request, "¡Reserva actualizada correctamente!")

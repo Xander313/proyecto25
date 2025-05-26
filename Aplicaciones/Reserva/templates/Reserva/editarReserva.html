@@ -21,7 +21,7 @@
   <div class="col-md-6 bg-light p-4 rounded shadow">
     <h2 class="text-center mb-4">Editar Reserva</h2>
 
-    <form action="{% url 'procesarEdicionReserva' reserva.id %}"  method="post">
+    <form action="{% url 'procesarEdicionReserva' reserva.id %}" id="formEditarReserva" method="post">
       {% csrf_token %}
 
 
@@ -74,7 +74,55 @@
 </div>
 
 
+<script>
+    $.validator.addMethod("rango", function(valor, elemento, parametros) {
+        var fecha = new Date(valor);
+        var fechaInicio = new Date(parametros.min);
+        var fechaFin = new Date(parametros.max);
+        return fecha >= fechaInicio && fecha <= fechaFin;
+    }, "La fecha debe estar dentro del rango especificado.");
+    $("#formEditarReserva").validate({
+        rules:{
+            visitante:{
+                required:true
+            },
+            exposicion:{
+                required:true
+            },
+            fecha: {
+                required: true,
+                date: true, 
+                rango: {
+                  min: "2025-05-27",
+                  max: "2025-12-31"  
+                }
+            },
+            observaciones:{
+                required:true 
 
+            }
+        },
+        messages:{
+            visitante:{
+                required:"El visitante de la reserva es requerido",
+            },
+            exposicion:{
+                required:"La exposicion de la reserva es requerido",
+            },
+            fecha: {
+                required:"La fecha de la reserva es requerido",
+                date: "La fecha ingresada no es válida.",
+                rango: "La fecha debe estar entre 27/05/2025 y 31/12/2025."
+            },
+            observaciones:{
+                required:"La observacion de la reserva es requerido",
+
+            }
+        }
+    
+    });
+    
+</script>
 
 
 
