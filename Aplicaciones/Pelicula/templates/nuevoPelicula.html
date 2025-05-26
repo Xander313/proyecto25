@@ -14,49 +14,124 @@
       <div class="col-md-6 bg-light p-4 rounded shadow">
           <h1 class="text-center mb-4">Nueva pelicula</h1>
 
-          <form action="{% url 'guardarPelicula' %}" method="post">
-              {% csrf_token %}
+          <form action="{% url 'guardarPelicula' %}" id="formGuardarPelicula" method="post">
+                {% csrf_token %}
 
-              <div class="mb-3">
-                  <label for="titulo" class="form-label">Título</label>
-                  <input type="text" class="form-control" name="titulo" id="titulo" required>
-              </div>
+                <div class="mb-3">
+                    <label for="titulo" class="form-label">Título</label>
+                    <input type="text" class="form-control" name="titulo" id="titulo" required>
+                </div>
 
-              <div class="mb-3">
-                  <label for="autor" class="form-label">Autor</label>
-                  <input type="text" class="form-control" name="autor" id="autor" required>
-              </div>
-                  <div class="mb-3">
-                  <label for="anio" class="form-label">Año</label>
-                  <input type="number" class="form-control" name="anio" id="anio" required>
-              </div>
+                <div class="mb-3">
+                    <label for="autor" class="form-label">Autor</label>
+                    <input type="text" class="form-control" name="autor" id="autor" required>
+                </div>
+                    <div class="mb-3">
+                    <label for="anio" class="form-label">Año</label>
+                    <input type="number" class="form-control" name="anio" id="anio" required>
+                </div>
 
 
-            <div class="mb-3">
-                <label for="exposicion" class="form-label">Genero</label>
-                <select class="form-select" name="genero" id="genero" required>
-                    <option value="">Seleccione un genero</option>
-                    {% for e in genero %}
-                        <option value="{{ e.id }}">{{ e.nombre }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                <div class="mb-3">
+                    <label for="genero" class="form-label">Genero</label>
+                    <select class="form-select" name="genero" id="genero" required>
+                        <option value="">Seleccione un genero</option>
+                        {% for e in genero %}
+                            <option value="{{ e.id }}">{{ e.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
               
-                  <div class="mb-3">
+                <div class="mb-3">
                   <label for="anio" class="form-label">Presupuesto</label>
                   <input type="number" class="form-control" name="presupuesto" id="presupuesto" required>
                 </div>
 
 
-              <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                  <a href="{% url 'Pelicula' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
-                  <button type="submit" class="btn btn-outline-success">Guardar  <i class="fa-solid fa-floppy-disk"></i></button>
-              </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <a href="{% url 'indexPelicula' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
+                    <button type="submit" class="btn btn-outline-success">Guardar  <i class="fa-solid fa-floppy-disk"></i></button>
+                </div>
           </form>
       </div>
       <div class="col-md-3"></div>
   </div>
+
+
+  <script>
+    $("#formGuardarPelicula").validate({
+        rules:{
+            titulo:{
+                required:true,
+                minlength:4,
+                maxlength:100
+            },
+            autor:{
+                required:true,
+                minlength:5,
+                maxlength:100
+
+            },
+            anio:{
+                required:true,
+                number:true,
+                min:1000,
+                max:2025
+                
+            },
+            genero:{
+                required:true,
+            },
+            presupuesto:{
+                required:true,
+                number:true,
+                min:1000000,
+                max:1000000000
+                
+            }
+            
+        },
+        messages:{
+            titulo:{
+                required:"El titulo de la pelicula es requerido",
+                minlength:"El titulo de la pelicula no puede tener menos de 4 letras",
+                maxlength:"El titulo de la pelicula no puede tener mas de 100 letras"
+            },
+            autor:{
+                required:"El autor de la pelicula es requerido",
+                minlength:"El autor de la pelicula no puede tener menos de 5 letras",
+                maxlength:"El autor de la pelicula no puede tener mas de 100 letras"
+            },
+            anio:{
+                required: "El año de la pelicula es requerido",
+                number: "El año de la pelicula debe ser unicamente de valores numéricos",
+                min: "El año de la pelicula no puede ser menor al año 1000",
+                max: "El año de la pelicula no puede ser mayor al año actual (2025)",
+            },
+            genero:{
+                required: "El genero de la pelicula es requerido",
+            },
+            presupuesto:{
+                required: "El presupuesto de la pelicula es requerido",
+                number: "El presupuesto de la pelicula debe ser unicamente de valores numéricos",
+                min: "El presupuesto de la pelicula no puede ser menor a 1000000 de dolares",
+                max: "El presupuesto de la pelicula no puede ser mayor a 1000000000 de dolares",
+                
+            }
+        }
+    
+    });
+    
+</script>
+
+
+
+
+
+
+
+
 {% endblock content %}
 
 <!-- JS específico (opcional) -->

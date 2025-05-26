@@ -27,7 +27,7 @@ def guardarPelicula(request):
 
 
 
-        presupuesto = request.POST["presupuesto"]
+        presupuesto = request.POST["presupuesto"].replace(',','.')
 
         
         genero = Genero.objects.get(id=generoid)
@@ -91,7 +91,7 @@ def procesarEdicionPelicula(request, id):
     anio = request.POST["anio"]
     generoid=request.POST["genero"]
     genero = Genero.objects.get(id=generoid)
-    presupuesto = request.POST["presupuesto"]
+    presupuesto = request.POST["presupuesto"].replace(',','.')
 
 
     obra = Pelicula.objects.get(id=id)
