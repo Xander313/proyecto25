@@ -23,13 +23,17 @@ def guardarReserva(request):
     if request.method == "POST":
         visitante_id = request.POST["visitante"]
         exposicion_id = request.POST["exposicion"]
+        observaciones = request.POST["observaciones"]
+        fecha = request.POST["fecha"]
 
         visitante = Visitante.objects.get(id=visitante_id)
         exposicion = Exposicion.objects.get(id=exposicion_id)
 
         Reserva.objects.create(
             visitante=visitante,
-            exposicion=exposicion
+            exposicion=exposicion,
+            fecha_reserva = fecha,
+            observaciones = observaciones
         )
 
         messages.success(request, "¡Reserva creada exitosamente!")

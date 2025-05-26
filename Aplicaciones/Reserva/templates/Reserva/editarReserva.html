@@ -21,13 +21,13 @@
   <div class="col-md-6 bg-light p-4 rounded shadow">
     <h2 class="text-center mb-4">Editar Reserva</h2>
 
-    <form action="{% url 'procesarEdicionReserva' reserva.id %}" method="post">
+    <form action="{% url 'procesarEdicionReserva' reserva.id %}"  method="post">
       {% csrf_token %}
 
 
       <div class="mb-3">
         <label for="visitante" class="form-label">Visitante</label>
-        <select name="visitante" id="visitante" class="form-select" required>
+        <select name="visitante" id="visitante" class="form-select" >
           <option value="">Seleccione un visitante</option>
           {% for v in visitantes %}
             <option value="{{ v.id }}"
@@ -40,7 +40,7 @@
 
       <div class="mb-3">
         <label for="exposicion" class="form-label">Exposición</label>
-        <select name="exposicion" id="exposicion" class="form-select" required>
+        <select name="exposicion" id="exposicion" class="form-select" >
           <option value="">Seleccione una exposición</option>
           {% for e in exposiciones %}
             <option value="{{ e.id }}"
@@ -49,6 +49,15 @@
             </option>
           {% endfor %}
         </select>
+      </div>
+
+      <div class="mb-3">
+          <label for="fecha" class="form-label">Fecha de reserva: </label>
+          <input type="date" class="form-control"  value="{{ reserva.fecha_reserva|date:'Y-m-d' }}" name="fecha" id="fecha" >
+      </div>
+      <div class="mb-3">
+          <label for="observaciones" class="form-label">Observaciones de la reserva</label>
+          <textarea class="form-control"  name="observaciones" id="observaciones" rows="5"> {{reserva.observaciones}}</textarea>
       </div>
 
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -63,6 +72,11 @@
   </div>
   <div class="col-md-3"></div>
 </div>
+
+
+
+
+
 
 
 

@@ -22,12 +22,12 @@
     <div class="col-md-6 bg-light p-4 rounded shadow">
         <h1 class="text-center mb-4">Nueva Reserva</h1>
 
-        <form action="{% url 'guardarReserva' %}" method="post">
+        <form action="{% url 'guardarReserva' %}" id="formGuardarReserva" method="post">
             {% csrf_token %}
 
             <div class="mb-3">
                 <label for="visitante" class="form-label">Visitante</label>
-                <select class="form-select" name="visitante" id="visitante" required>
+                <select class="form-select" name="visitante" id="visitante" >
                     <option value="">Seleccione un visitante</option>
                     {% for v in visitantes %}
                         <option value="{{ v.id }}">{{ v.nombre }}</option>
@@ -37,12 +37,21 @@
 
             <div class="mb-3">
                 <label for="exposicion" class="form-label">Exposición</label>
-                <select class="form-select" name="exposicion" id="exposicion" required>
-                    <option value="exposicion">Seleccione una exposición</option>
+                <select class="form-select" name="exposicion" id="exposicion" >
+                    <option value="">Seleccione una exposición</option>
                     {% for e in exposiciones %}
                         <option value="{{ e.id }}">{{ e.nombre }}</option>
                     {% endfor %}
                 </select>
+            </div>
+    
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha de reserva: </label>
+                <input type="date" class="form-control" name="fecha" id="fecha" >
+            </div>
+            <div class="mb-3">
+                <label for="observaciones" class="form-label">Observaciones de la reserva</label>
+                <textarea class="form-control"  name="observaciones" id="observaciones" rows="5"></textarea>
             </div>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
@@ -57,6 +66,61 @@
     </div>
     <div class="col-md-3"></div>
 </div>
+
+
+
+
+
+<script>
+    $.validator.addMethod("rango", function(valor, elemento, parametros) {
+        var fecha = new Date(valor);
+        var fechaInicio = new Date(parametros.min);
+        var fechaFin = new Date(parametros.max);
+        return fecha >= fechaInicio && fecha <= fechaFin;
+    }, "La fecha debe estar dentro del rango especificado.");
+    $("#formGuardarReserva").validate({
+        rules:{
+            visitante:{
+                required:true
+            },
+            exposicion:{
+                required:true
+            },
+            fecha: {
+                required: true,
+                date: true, 
+                rango: {
+                    min: "27/05/2025",
+                    max: "12/31/2025" 
+                }
+            },
+            observaciones:{
+                required:true 
+
+            }
+        },
+        messages:{
+            visitante:{
+                required:"El visitante de la reserva es requerido",
+            },
+            exposicion:{
+                required:"La exposicion de la reserva es requerido",
+            },
+            fecha: {
+                required:"La fecha de la reserva es requerido",
+                date: "La fecha ingresada no es válida.",
+                rango: "La fecha debe estar entre 01/01/2020 y  12/31/2025."
+            },
+            observaciones:{
+                required:"La observacion de la reserva es requerido",
+
+            }
+        }
+    
+    });
+    
+</script>
+
 
 
 {% endblock content %}
