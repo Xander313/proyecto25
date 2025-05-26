@@ -43,12 +43,16 @@
 
 
 
-  <!-- jquery padre -->
+    <!-- importacion de jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
 
-  <!-- jquery hijo -->
+    <!-- importacion de jquery validation -->
+     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
 
-  
+
+
+
   {% block stylesheets %}{% endblock stylesheets %}
 
 </head>
@@ -91,6 +95,18 @@
 
   <script src="/static/assets/js/argon.js?v=1.2.0"></script>
 
-</body>
 
+    <style>
+      .error{
+        color: red;
+        font-weight: bold;
+      }
+      .form-control.error{
+        border: 1px solid red;
+      }
+    </style>
+
+
+
+</body>
 </html>
