@@ -20,7 +20,7 @@ def guardarArte(request):
         anio = request.POST["anio"]
 
         ObraArte.objects.create(titulo=titulo, autor=autor, anio=anio)
-        messages.success(request, "SE HA ELIMINADO LA OBRA" )
+        messages.success(request, "SE HA AGREGADO LA OBRA" )
 
         return redirect('indexArte')
     return redirect('indexArte')  

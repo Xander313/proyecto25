@@ -14,7 +14,7 @@
       <div class="col-md-6 bg-light p-4 rounded shadow">
           <h1 class="text-center mb-4">Nueva Obra de Arte</h1>
 
-          <form action="{% url 'guardarArte' %}" method="post">
+          <form action="{% url 'guardarArte' %}" id="formGuardarArte" method="post">
               {% csrf_token %}
 
               <div class="mb-3">
@@ -40,6 +40,58 @@
       </div>
       <div class="col-md-3"></div>
   </div>
+
+<script>
+    $("#formGuardarArte").validate({
+        rules:{
+            titulo:{
+                required:true,
+                minlength:4,
+                maxlength:100
+            },
+            autor:{
+                required:true,
+                minlength:5,
+                maxlength:100
+
+            },
+            anio:{
+                required:true,
+                number:true,
+                min:1000,
+                max:2025
+                
+            }
+        },
+        messages:{
+            titulo:{
+                required:"El titulo de la obra de arte es requerido",
+                minlength:"El titulo de la obra de arte no puede tener menos de 4 letras",
+                maxlength:"El titulo de la obra de arte no puede tener mas de 100 letras"
+            },
+            autor:{
+                required:"El autor de la obra de arte es requerido",
+                minlength:"El autor de la obra de arte no puede tener menos de 5 letras",
+                maxlength:"El autor de la obra de arte no puede tener mas de 100 letras"
+            },
+            anio:{
+                required: "El año de la obra de arte es requerido",
+                number: "El año de la obra de arte debe ser unicamente de valores numéricos",
+                min: "El año de la obra de arte no puede ser menor al año 1000",
+                max: "El año de la obra de arte no puede ser mayor al año actual (2025)",
+            }
+        }
+    
+    });
+    
+</script>
+
+
+
+
+
+  
+
 {% endblock content %}
 
 <!-- JS específico (opcional) -->
