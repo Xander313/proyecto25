@@ -62,6 +62,75 @@
     <div class="col-md-3"></div>
 </div>
 
+<script>
+    $("#formGuardarPelicula").validate({
+        rules:{
+            titulo:{
+                required:true,
+                minlength:4,
+                maxlength:100
+            },
+            autor:{
+                required:true,
+                minlength:5,
+                maxlength:100
+
+            },
+            anio:{
+                required:true,
+                number:true,
+                min:1000,
+                max:2025
+                
+            },
+            genero:{
+                required:true,
+            },
+            presupuesto:{
+                required:true,
+                number:true,
+                min:1000000,
+                max:1000000000
+                
+            }
+            
+        },
+        messages:{
+            titulo:{
+                required:"El titulo de la pelicula es requerido",
+                minlength:"El titulo de la pelicula no puede tener menos de 4 letras",
+                maxlength:"El titulo de la pelicula no puede tener mas de 100 letras"
+            },
+            autor:{
+                required:"El autor de la pelicula es requerido",
+                minlength:"El autor de la pelicula no puede tener menos de 5 letras",
+                maxlength:"El autor de la pelicula no puede tener mas de 100 letras"
+            },
+            anio:{
+                required: "El año de la pelicula es requerido",
+                number: "El año de la pelicula debe ser unicamente de valores numéricos",
+                min: "El año de la pelicula no puede ser menor al año 1000",
+                max: "El año de la pelicula no puede ser mayor al año actual (2025)",
+            },
+            genero:{
+                required: "El genero de la pelicula es requerido",
+            },
+            presupuesto:{
+                required: "El presupuesto de la pelicula es requerido",
+                number: "El presupuesto de la pelicula debe ser unicamente de valores numéricos",
+                min: "El presupuesto de la pelicula no puede ser menor a 1000000 de dolares",
+                max: "El presupuesto de la pelicula no puede ser mayor a 1000000000 de dolares",
+                
+            }
+        }
+    
+    });
+    
+</script>
+
+
+
+
 {% endblock content %}
 
 <!-- JS específico (opcional) -->
