@@ -15,7 +15,7 @@
     <div class="col-md-6 bg-light p-4 rounded shadow">
         <h1 class="text-center mb-4">Editar genero</h1>
 
-        <form action="{% url 'procesarEdicionGenero' obra.id %}" method="post">
+        <form action="{% url 'procesarEdicionGenero' obra.id %}" id="formEditarGenero" method="post">
             {% csrf_token %}
 
               <div class="mb-3">
@@ -49,6 +49,78 @@
     </div>
     <div class="col-md-3"></div>
 </div>
+
+
+<script>
+    $("#formEditarGenero").validate({
+        rules:{
+            nombre:{
+                required:true,
+                minlength:4,
+                maxlength:100
+            },
+            descipcion:{
+                required:true,
+                minlength:5,
+                maxlength:100000
+
+            },
+            ejemplares:{
+                required:true,
+                number:true,
+                min:1,
+                max:1000000
+                
+            },
+            autor:{
+                required:true,
+                minlength:5,
+                maxlength:100
+            },
+            aorigen:{
+                required:true,
+                number:true,
+                min:1000,
+                max:2025
+                
+            }
+            
+        },
+        messages:{
+            nombre:{
+                required:"El nombre del genero es requerido",
+                minlength:"El nombre del genero no puede tener menos de 4 letras",
+                maxlength:"El nombre del genero no puede tener mas de 100 letras"
+            },
+            descipcion:{
+                required:"La descipcion del genero es requerido",
+                minlength:"La descipcion del genero no puede tener menos de 5 letras",
+                maxlength:"La descipcion del genero no puede tener mas de 100 letras"
+            },
+            ejemplares:{
+                required: "Los ejemplares del genero es requerido",
+                number: "Los ejemplares del genero debe ser unicamente de valores numéricos",
+                min: "Los ejemplares genero no puede ser menor a 1",
+                max: "Los ejemplares del genero no puede ser mayor a un millon",
+            },
+            autor:{
+                required: "El autor del genero es requerido",
+                minlength:"El autor del genero no puede tener menos de 5 letras",
+                maxlength:"El autor del genero no puede tener mas de 100 letras"
+            },
+            aorigen:{
+                required: "El año de origen del genero es requerido",
+                number: "El año de origen del genero debe ser unicamente de valores numéricos",
+                min: "El año de origen del genero no puede ser menor al año 1000",
+                max: "El año de origen del genero no puede ser mayor al año 2025",
+                
+            }
+        }
+    
+    });
+    
+</script>
+
 
 {% endblock content %}
 
