@@ -1,0 +1,123 @@
+{% extends 'layouts/base.html' %}  <!-- Ruta relativa a la plantilla base -->
+
+{% block title %} Editar Tipo {% endblock title %}
+
+<!-- CSS específico (opcional) -->
+{% block stylesheets %}
+  {{ block.super }}  <!-- Mantiene los CSS de la plantilla padre -->
+  <link rel="stylesheet" href="/static/assets/css/custom.css">  <!-- Ejemplo -->
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="row mt-4">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 bg-light p-4 rounded shadow">
+        <h1 class="text-center mb-4">Editar Tipo</h1>
+
+        <form action="{% url 'procesarEdicionTipo' tipo.id %}" id="formEditarTipo" method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre del tipo:</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" value="{{ tipo.nombre }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción:</label>
+                <textarea class="form-control" name="descripcion" id="descripcion" rows="3" required>{{ tipo.descripcion }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="anio" class="form-label">Año de origen:</label>
+                <input type="date" class="form-control" name="anio" id="anio" value="{{ tipo.anio }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="genero" class="form-label">Género asociado:</label>
+                <input type="text" class="form-control" name="genero" id="genero" value="{{ tipo.genero }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="popularidad" class="form-label">Nivel de popularidad:</label>
+                <input type="number" class="form-control" name="popularidad" id="popularidad" value="{{ tipo.popularidad }}" required>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                <a href="{% url 'listarTipos' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
+                <button type="submit" class="btn btn-outline-primary">Actualizar Tipo <i class="fa-solid fa-pen-to-square"></i></button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+<script>
+    $("#formGuardarTipo").validate({
+        rules:{
+            nombre:{
+                required:true,
+                minlength:3,
+                maxlength:20
+            },
+            descripcion:{
+                required:true,
+                minlength:5,
+                maxlength:255
+            },
+            anio:{
+                required:true,
+                number:true,
+                min:1925,
+                max:2025
+            },
+            genero:{
+                required:true,
+                minlength:3,
+                maxlength:50
+            },
+            popularidad:{
+                required:true,
+                number:true,
+                min:1,
+                max:100
+            }
+        },
+        messages:{
+            nombre:{
+                required:"El nombre del tipo es requerido",
+                minlength:"Debe tener al menos 3 caracteres",
+                maxlength:"No puede exceder los 50 caracteres"
+            },
+            descripcion:{
+                required:"La descripción es requerida",
+                minlength:"Debe tener al menos 5 caracteres",
+                maxlength:"No puede exceder los 255 caracteres"
+            },
+            anio:{
+                required:"El año es requerido",
+                number:"Debe ingresar solo números",
+                min:"El año mínimo es 1925",
+                max:"El año máximo es 2025"
+            },
+            genero:{
+                required:"El género es requerido",
+                minlength:"Debe tener al menos 3 caracteres",
+                maxlength:"No puede exceder los 50 caracteres"
+            },
+            popularidad:{
+                required:"La popularidad es requerida",
+                number:"Debe ingresar un número",
+                min:"La popularidad mínima es 1",
+                max:"La popularidad máxima es 100"
+            }
+        }
+    });
+</script>
+{% endblock content %}
+
+<!-- JS específico (opcional) -->
+{% block javascripts %}
+  {{ block.super }}  <!-- Mantiene los JS de la plantilla padre -->
+  <script src="/static/assets/js/custom.js"></script>  <!-- Ejemplo -->
+{% endblock javascripts %}
