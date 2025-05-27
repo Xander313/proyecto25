@@ -11,5 +11,7 @@ urlpatterns = [
     path('Visitante/', include('Aplicaciones.Visitante.urls')),
     path('Generos/', include('Aplicaciones.Genero.urls')),
     path('Peliculas/', include('Aplicaciones.Pelicula.urls')),
+    path('Tipo/', include('Aplicaciones.Tipo.urls')),
+    path('Artista/', include('Aplicaciones.Artista.urls')),
 
 ]
