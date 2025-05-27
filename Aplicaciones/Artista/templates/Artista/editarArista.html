@@ -77,8 +77,7 @@
             telefono:{
                 required:true,
                 number:true,
-                minlength:8,
-                maxlength:15
+                pattern:/^(\+593\s9\d{8}|0\d{9})$/,
             },
             edad:{
                 required:true,
@@ -106,14 +105,13 @@
             telefono:{
                 required:"El teléfono del artista es requerido",
                 number:"Debe contener solo números",
-                minlength:"Debe tener al menos 8 dígitos",
-                maxlength:"No puede superar los 15 dígitos"
+                pattern: "El teléfono debe ser en formato +593 9999999999 o 0999999999"
             },
             edad:{
                 required:"La edad del artista es requerida",
                 number:"Debe ingresar un número válido",
                 min:"Edad mínima de 10 años",
-                max:"Edad máxima de 100 años"
+                max:"Edad máxima de 80 años"
             },
             genero:{
                 required:"El género del artista es requerido",
