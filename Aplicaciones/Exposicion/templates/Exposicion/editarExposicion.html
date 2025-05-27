@@ -13,34 +13,31 @@
     <div class="col-md-6 bg-light p-4 rounded shadow">
         <h1 class="text-center mb-4">Editar Exposición</h1>
 
-        <form action="{% url 'procesarEdicionExposicion' exposicion.id %}" method="post">
+        <form action="{% url 'procesarEdicionExposicion' exposicion.id %}" method="post" id="formGuardarExposicion">
             {% csrf_token %}
 
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre de la Exposición</label>
-                <input type="text" class="form-control" name="nombre" id="nombre" value="{{ exposicion.nombre }}" required>
+                <input type="text" class="form-control" name="nombre" id="nombre" value="{{ exposicion.nombre }}">
             </div>
 
             <div class="mb-3">
                 <label for="fecha" class="form-label">Fecha</label>
-                <input type="date" class="form-control" name="fecha" id="fecha" value="{{ exposicion.fecha|date:'Y-m-d' }}" required>
+                <input type="date" class="form-control" name="fecha" id="fecha" value="{{ exposicion.fecha|date:'Y-m-d' }}">
             </div>
 
             <div class="mb-3">
                 <label for="sala" class="form-label">Sala</label>
-                <input type="text" class="form-control" name="sala" id="sala" value="{{ exposicion.sala }}" required>
+                <input type="text" class="form-control" name="sala" id="sala" value="{{ exposicion.sala }}">
             </div>
 
             <div class="mb-3">
                 <label for="obra" class="form-label">Seleccionar Obra</label>
-                <select class="form-select" name="obra" id="obra" required>
-                    <option value="">Seleccione una obra</option>
-                    {% for obra in obras %}
-                        <option value="{{ obra.id }}" {% if obra in obras_seleccionadas %}selected{% endif %}>
-                            {{ obra.titulo }}
-                        </option>
-                    {% endfor %}
-                </select>
+                    <select class="form-select" name="obras" id="obra" multiple required>
+                        {% for obra in obras %}
+                            <option value="{{ obra.id }}">{{ obra.titulo }}</option>
+                        {% endfor %}
+                    </select>
             </div>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
@@ -51,6 +48,52 @@
     </div>
     <div class="col-md-3"></div>
 </div>
+
+  <script>
+    $("#formGuardarExposicion").validate({
+        rules: {
+            "nombre": {
+                required: true,
+                minlength: 3,
+                maxlength: 50
+            },
+            "fecha": {
+                required: true,
+                date: true,
+                max: new Date().toISOString().split("T")[0] // Evita fechas futuras
+            },
+            "sala": {
+                required: true,
+                minlength: 3,
+                maxlength: 50
+            },
+            "obra": {
+                required: true
+            }
+        },
+        messages: {
+            "nombre": {
+                required: "Por favor, ingresa el nombre de la exposición.",
+                minlength: "El nombre debe tener al menos 3 caracteres.",
+                maxlength: "El nombre no puede superar los 50 caracteres."
+            },
+            "fecha": {
+                required: "Por favor, selecciona una fecha.",
+                date: "Ingresa una fecha válida.",
+                max: "La fecha no puede ser en el futuro."
+            },
+            "sala": {
+                required: "Por favor, ingresa el nombre de la sala.",
+                minlength: "El nombre debe tener al menos 3 caracteres.",
+                maxlength: "El nombre no puede superar los 50 caracteres."
+            },
+            "obra": {
+                required: "Por favor, selecciona una obra."
+            }
+        }
+    });
+
+  </script>
 {% endblock content %}
 
 {% block javascripts %}
