@@ -7,3 +7,4 @@ class Tipo(models.Model):
     descripcion = models.CharField(max_length=255)
     anio = models.CharField(max_length=20)
     genero = models.CharField(max_length=20)
+    popularidad = models.IntegerField()

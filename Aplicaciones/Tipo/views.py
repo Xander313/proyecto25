@@ -5,11 +5,11 @@ from django.contrib import messages
 # Listar todos los tipos
 def listarTipos(request):
     tipos = Tipo.objects.all()
-    return render(request, "Tipos/listarTipos.html", {'tipos': tipos})
+    return render(request, "Tipo/inicioTipo.html", {'tipos': tipos})
 
 # Mostrar formulario para agregar un nuevo tipo
 def nuevoTipo(request):
-    return render(request, "Tipos/nuevoTipo.html")
+    return render(request, "Tipo/nuevoTipo.html")
 
 # Guardar nuevo tipo en la BD
 def guardarTipo(request):
@@ -36,7 +36,7 @@ def eliminarTipo(request, id):
 # Mostrar formulario de edición para un tipo
 def editarTipo(request, id):
     tipo = Tipo.objects.get(id=id)
-    return render(request, "Tipos/editarTipo.html", {'tipo': tipo})
+    return render(request, "Tipo/editarTipo.html", {'tipo': tipo})
 
 # Procesar edición del tipo y guardar cambios en la BD
 def procesarEdicionTipo(request, id):

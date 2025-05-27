@@ -5,12 +5,12 @@ from django.contrib import messages
 # Listar todos los artistas con su tipo asociado
 def listarArtistas(request):
     artistas = Artista.objects.select_related('tipo').all()  # Optimización con select_related
-    return render(request, "Artistas/listarArtistas.html", {'artistas': artistas})
+    return render(request, "Artista/inicioArtista.html", {'artistas': artistas})
 
 # Mostrar formulario para agregar un nuevo artista
 def nuevoArtista(request):
     tipos = Tipo.objects.all()  # Obtener todos los tipos disponibles
-    return render(request, "Artistas/nuevoArtista.html", {'tipos': tipos})
+    return render(request, "Artista/nuevoArtista.html", {'tipos': tipos})
 
 # Guardar nuevo artista en la BD con su tipo asociado
 def guardarArtista(request):
@@ -40,7 +40,7 @@ def eliminarArtista(request, id):
 def editarArtista(request, id):
     artista = Artista.objects.get(id=id)
     tipos = Tipo.objects.all()  # Obtener todos los tipos disponibles
-    return render(request, "Artistas/editarArtista.html", {'artista': artista, 'tipos': tipos})
+    return render(request, "Artista/editarArista.html", {'artista': artista, 'tipos': tipos})
 
 # Procesar edición del artista y actualizar su tipo asociado
 def procesarEdicionArtista(request, id):

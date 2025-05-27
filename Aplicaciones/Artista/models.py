@@ -1,5 +1,6 @@
 from django.db import models
-from Tipo.models import Tipo
+from Aplicaciones.Tipo.models import Tipo
+
 
 # Create your models here.
 class Artista(models.Model):

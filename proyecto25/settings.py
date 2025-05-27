@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'Aplicaciones.Inicio',
     'Aplicaciones.Genero',
     'Aplicaciones.Pelicula',
+    'Aplicaciones.Tipo',
+    'Aplicaciones.Artista',
 
 
 ]

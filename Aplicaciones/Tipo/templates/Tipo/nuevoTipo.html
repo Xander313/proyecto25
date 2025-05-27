@@ -53,65 +53,66 @@
 
 <script>
     $("#formGuardarTipo").validate({
-        rules:{
-            nombre:{
-                required:true,
-                minlength:3,
-                maxlength:20
-            },
-            descripcion:{
-                required:true,
-                minlength:5,
-                maxlength:255
-            },
-            anio:{
-                required:true,
-                number:true,
-                min:1925,
-                max:2025
-            },
-            genero:{
-                required:true,
-                minlength:3,
-                maxlength:50
-            },
-            popularidad:{
-                required:true,
-                number:true,
-                min:1,
-                max:100
-            }
+    rules: {
+        "nombre": {
+            required: true,
+            minlength: 3,
+            maxlength: 20
         },
-        messages:{
-            nombre:{
-                required:"El nombre del tipo es requerido",
-                minlength:"Debe tener al menos 3 caracteres",
-                maxlength:"No puede exceder los 50 caracteres"
-            },
-            descripcion:{
-                required:"La descripción es requerida",
-                minlength:"Debe tener al menos 5 caracteres",
-                maxlength:"No puede exceder los 255 caracteres"
-            },
-            anio:{
-                required:"El año es requerido",
-                number:"Debe ingresar solo números",
-                min:"El año mínimo es 1925",
-                max:"El año máximo es 2025"
-            },
-            genero:{
-                required:"El género es requerido",
-                minlength:"Debe tener al menos 3 caracteres",
-                maxlength:"No puede exceder los 50 caracteres"
-            },
-            popularidad:{
-                required:"La popularidad es requerida",
-                number:"Debe ingresar un número",
-                min:"La popularidad mínima es 1",
-                max:"La popularidad máxima es 100"
-            }
+        "descripcion": {
+            required: true,
+            minlength: 5,
+            maxlength: 255
+        },
+        "anio": {
+            required: true,
+            date: true,
+            min: "1925-01-01",
+            max: new Date().toISOString().split("T")[0] // Fecha actual
+        },
+        "genero": {
+            required: true,
+            minlength: 3,
+            maxlength: 50
+        },
+        "popularidad": {
+            required: true,
+            number: true,
+            min: 1,
+            max: 100
         }
+    },
+    messages: {
+        "nombre": {
+            required: "Por favor, ingresa el nombre del tipo.",
+            minlength: "Por favor, el nombre debe tener al menos 3 caracteres.",
+            maxlength: "Por favor, el nombre no puede exceder los 20 caracteres."
+        },
+        "descripcion": {
+            required: "Por favor, proporciona una descripción.",
+            minlength: "La descripción debe tener al menos 5 caracteres.",
+            maxlength: "La descripción no puede exceder los 255 caracteres."
+        },
+        "anio": {
+            required: "Por favor, selecciona una fecha.",
+            date: "Ingresa una fecha válida.",
+            min: "El año mínimo permitido es 1925.",
+            max: "Por favor, ingresa una fecha dentro del rango permitido hasta el día de hoy en 2025."
+        },
+        "genero": {
+            required: "Por favor, indica el género.",
+            minlength: "El género debe tener al menos 3 caracteres.",
+            maxlength: "El género no puede exceder los 50 caracteres."
+        },
+        "popularidad": {
+            required: "Por favor, ingresa el nivel de popularidad.",
+            number: "Por favor, ingresa un número válido.",
+            min: "La popularidad mínima es 1.",
+            max: "La popularidad máxima es 100."
+        }
+    }
     });
+
 </script>
 
 {% endblock content %}
