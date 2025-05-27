@@ -1,4 +1,5 @@
 from django.db import models
+from Tipo.models import Tipo
 
 # Create your models here.
 class Artista(models.Model):
@@ -8,4 +9,4 @@ class Artista(models.Model):
     telefono = models.CharField(max_length=10)
     edad = models.CharField(max_length=5)
     genero = models.CharField(max_length=10)
-    tipo = models.ForeignKey(Tipo, on_delete=models.CASCADE)  # Relación directa
+    tipo = models.ForeignKey(Tipo, on_delete=models.CASCADE)  
