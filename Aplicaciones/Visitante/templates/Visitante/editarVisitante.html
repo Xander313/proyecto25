@@ -15,7 +15,7 @@
     <div class="col-md-6 bg-light p-4 rounded shadow">
         <h1 class="text-center mb-4">Editar Visitante</h1>
 
-        <form action="{% url 'procesarEdicionVisitante' visitante.id %}" method="post">
+        <form action="{% url 'procesarEdicionVisitante' visitante.id %}" method="post" id="formGuardarVisitante">
             {% csrf_token %}
 
             <div class="mb-3">
@@ -36,6 +36,32 @@
     </div>
     <div class="col-md-3"></div>
 </div>
+<script>
+    $("#formGuardarVisitante").validate({
+        rules:{
+            "nombre":{
+                required:true,
+                minlength:3,
+                maxlength:50
+            },
+            "email":{
+                required:true,
+                email:true
+            }
+        },
+        messages:{
+            "nombre":{
+                required:"El nombre del visitante es requerido.",
+                minlength:"El nombre debe tener al menos 3 caracteres.",
+                maxlength:"El nombre no puede superar los 50 caracteres."
+            },
+            "email":{
+                required:"El correo electrónico es requerido.",
+                email:"Por favor, ingresa un correo válido."
+            }
+        }
+    });
+</script>
 
 {% endblock content %}
 
