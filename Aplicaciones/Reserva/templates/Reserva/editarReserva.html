@@ -21,7 +21,7 @@
   <div class="col-md-6 bg-light p-4 rounded shadow">
     <h2 class="text-center mb-4">Editar Reserva</h2>
 
-    <form action="{% url 'procesarEdicionReserva' reserva.id %}" id="formEditarReserva" method="post">
+    <form action="{% url 'procesarEdicionReserva' reserva.id %}" enctype="multipart/form-data" id="formEditarReserva" method="post">
       {% csrf_token %}
 
 
@@ -55,6 +55,28 @@
           <label for="fecha" class="form-label">Fecha de reserva: </label>
           <input type="date" class="form-control"  value="{{ reserva.fecha_reserva|date:'Y-m-d' }}" name="fecha" id="fecha" >
       </div>
+
+      <div class="mb-3">
+          <label  for="foto">Foto de la obra de arte: <small class="text-muted">Si no seleccionas una nueva fot, se mantendrá la foto actual.</small></label>
+          <input class="form-control" type="file" name="foto" id="foto" accept="image/*">
+          {% if reserva.foto %}
+              <img src="{{reserva.foto.url}}" height="auto" width="100px" alt="">
+          {% else %}
+              No tiene foto
+          {% endif%}
+      </div>
+      <div class="mb-3">
+          <label for="documento">Certificación: <small class="text-muted">Si no seleccionas un nuevo certificado, se mantendrá el certificado actual.</small> </label>
+          <input class="form-control" type="file" name="documento" id="documento" accept="application/pdf">
+          {% if reserva.documento %}
+              <div style="height: 100%; width: 100%;" >
+                  <iframe src="{{ reserva.documento.url }}" frameborder="0"></iframe>
+              </div>
+          {% else %}
+              No tiene documento
+          {% endif%}
+      </div>
+
       <div class="mb-3">
           <label for="observaciones" class="form-label">Observaciones de la reserva</label>
           <textarea class="form-control"  name="observaciones" id="observaciones" rows="5"> {{reserva.observaciones}}</textarea>
@@ -72,6 +94,7 @@
   </div>
   <div class="col-md-3"></div>
 </div>
+
 
 
 <script>
@@ -93,8 +116,8 @@
                 required: true,
                 date: true, 
                 rango: {
-                  min: "2025-05-27",
-                  max: "2025-12-31"  
+                    min: "2025-06-03",
+                    max: "2025-12-31" 
                 }
             },
             observaciones:{
@@ -112,7 +135,7 @@
             fecha: {
                 required:"La fecha de la reserva es requerido",
                 date: "La fecha ingresada no es válida.",
-                rango: "La fecha debe estar entre 27/05/2025 y 31/12/2025."
+                rango: "La fecha debe estar entre 03/06/2025 y 12/31/2025."
             },
             observaciones:{
                 required:"La observacion de la reserva es requerido",
@@ -123,7 +146,6 @@
     });
     
 </script>
-
 
 
 

@@ -53,6 +53,8 @@
             <th>TÍTULO</th>
             <th>AUTOR</th>
             <th>AÑO</th>
+            <th>FOTO</th>
+            <th>Documento</th>
             <th>ACCIONES</th>
         </tr>
     </thead>
@@ -63,6 +65,24 @@
                 <td>{{ obra.titulo }}</td>
                 <td>{{ obra.autor }}</td>
                 <td>{{ obra.anio }}</td>
+                <td>
+                    {% if obra.foto %}
+                        <img src="{{obra.foto.url}}" height="auto" width="100px" alt="">
+                    {% else %}
+                        No tiene foto
+                    {% endif%}
+                </td>
+                <td>
+                    {% if obra.documento %}
+                        <div style="height: 100%; width: 100%;" >
+                            <iframe src="{{ obra.documento.url }}" frameborder="0"></iframe>
+                        </div>
+                        <a href="{{ obra.documento.url }}" download="" class="btn btn-sm btn-success mb-2">Descargar el pdf</a>
+                        <a href="{{ obra.documento.url }}" class="btn btn-sm btn-success mb-2" target="_blank">Ver pdf</a>
+                    {% else %}
+                        No tiene documento
+                    {% endif%}
+                </td>
                 <td>
                     <a href="{% url 'editarArte' obra.id %}" class="btn btn-outline-warning">
                         <i class="fa fa-pen"></i>

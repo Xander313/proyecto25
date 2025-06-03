@@ -23,7 +23,11 @@ def guardarExposicion(request):
         sala = request.POST["sala"]
         obras_seleccionadas = request.POST.getlist("obras")  
 
-        exposicion = Exposicion.objects.create(nombre=nombre, fecha=fecha, sala=sala)
+
+
+
+
+        exposicion = Exposicion.objects.create(nombre=nombre, fecha=fecha, sala=sala, )
         exposicion.obras.set(obras_seleccionadas)  
         messages.success(request, "SE HA CREADO LA EXPOSICIÓN")
 

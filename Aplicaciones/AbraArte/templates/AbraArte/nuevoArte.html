@@ -4,42 +4,48 @@
 
 <!-- CSS específico (opcional) -->
 {% block stylesheets %}
-  {{ block.super }}  <!-- Mantiene los CSS de la plantilla padre -->
-  <link rel="stylesheet" href="/static/assets/css/custom.css">  <!-- Ejemplo -->
+{{ block.super }}  <!-- Mantiene los CSS de la plantilla padre -->
+    <link rel="stylesheet" href="/static/assets/css/custom.css">  <!-- Ejemplo -->
 {% endblock stylesheets %}
 
 {% block content %}
-  <div class="row mt-4">
-      <div class="col-md-3"></div>
-      <div class="col-md-6 bg-light p-4 rounded shadow">
-          <h1 class="text-center mb-4">Nueva Obra de Arte</h1>
+<div class="row mt-4">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 bg-light p-4 rounded shadow">
+        <h1 class="text-center mb-4">Nueva Obra de Arte</h1>
+        <form action="{% url 'guardarArte' %}" id="formGuardarArte" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
 
-          <form action="{% url 'guardarArte' %}" id="formGuardarArte" method="post">
-              {% csrf_token %}
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Título</label>
+                <input type="text" class="form-control" name="titulo" id="titulo" required>
+            </div>
+            <div class="mb-3">
+                <label for="autor" class="form-label">Autor</label>
+                <input type="text" class="form-control" name="autor" id="autor" required>
+            </div>
+            <div class="mb-3">
+                <label for="anio" class="form-label">Año</label>
+                <input type="number" class="form-control" name="anio" id="anio" required>
+            </div>
 
-              <div class="mb-3">
-                  <label for="titulo" class="form-label">Título</label>
-                  <input type="text" class="form-control" name="titulo" id="titulo" required>
-              </div>
+            <div class="mb-3">
+                <label  for="foto">Foto de la obra de arte:</label>
+                <input class="form-control" type="file" name="foto" id="foto" accept="image/*">
+            </div>
 
-              <div class="mb-3">
-                  <label for="autor" class="form-label">Autor</label>
-                  <input type="text" class="form-control" name="autor" id="autor" required>
-              </div>
-
-              <div class="mb-3">
-                  <label for="anio" class="form-label">Año</label>
-                  <input type="number" class="form-control" name="anio" id="anio" required>
-              </div>
-
-              <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                  <a href="{% url 'indexArte' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
-                  <button type="submit" class="btn btn-outline-success">Guardar Obra <i class="fa-solid fa-floppy-disk"></i></button>
-              </div>
-          </form>
-      </div>
-      <div class="col-md-3"></div>
-  </div>
+            <div class="mb-3">
+                <label for="documento">Certificación: </label>
+                <input class="form-control" type="file" name="documento" id="documento" accept="application/pdf">
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                <a href="{% url 'indexArte' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
+                <button type="submit" class="btn btn-outline-success">Guardar Obra <i class="fa-solid fa-floppy-disk"></i></button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3"></div>
+</div>
 
 <script>
     $("#formGuardarArte").validate({
@@ -61,6 +67,14 @@
                 min:1000,
                 max:2025
                 
+            },
+            foto: {
+                required: true,
+                extension: "jpg|jpeg|png|gif"
+            },
+            documento: {
+                required: true,
+                extension: "pdf"
             }
         },
         messages:{
@@ -79,6 +93,14 @@
                 number: "El año de la obra de arte debe ser unicamente de valores numéricos",
                 min: "El año de la obra de arte no puede ser menor al año 1000",
                 max: "El año de la obra de arte no puede ser mayor al año actual (2025)",
+            },
+            foto: {
+                required: "Debe subir la foto de la obra de arte",
+                extension: "Solo se permiten imágenes: jpg, jpeg, png, gif"
+            },
+            documento: {
+                required: "Debe subir la Certificación en PDF",
+                extension: "Solo se permite formato PDF"
             }
         }
     
@@ -90,12 +112,10 @@
 
 
 
-  
-
 {% endblock content %}
 
-<!-- JS específico (opcional) -->
+
 {% block javascripts %}
-  {{ block.super }}  <!-- Mantiene los JS de la plantilla padre -->
-  <script src="/static/assets/js/custom.js"></script>  <!-- Ejemplo -->
+{{ block.super }} 
+<script src="/static/assets/js/custom.js"></script> 
 {% endblock javascripts %}

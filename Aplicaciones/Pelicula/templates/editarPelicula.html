@@ -13,25 +13,23 @@
 <div class="row mt-4">
     <div class="col-md-3"></div>
     <div class="col-md-6 bg-light p-4 rounded shadow">
-        <h1 class="text-center mb-4">Editar Obra de Arte</h1>
+        <h1 class="text-center mb-4">Editar Película</h1>
 
-        <form action="{% url 'procesarEdicionPelicula' obra.id %}" id="formEditarPelicula" method="post">
+        <form action="{% url 'procesarEdicionPelicula' obra.id %}" enctype="multipart/form-data" id="formEditarPelicula" method="post">
             {% csrf_token %}
 
-              <div class="mb-3">
-                  <label for="titulo" class="form-label">Título</label>
-                  <input type="text" class="form-control" value="{{ obra.titulo}}" name="titulo" id="titulo" required>
-              </div>
-
-              <div class="mb-3">
-                  <label for="autor" class="form-label">Autor</label>
-                  <input type="text" class="form-control" value="{{ obra.autor}}" name="autor" id="autor" required>
-              </div>
-                  <div class="mb-3">
-                  <label for="anio" class="form-label">Año</label>
-                  <input type="number" class="form-control" value="{{ obra.anio}}" name="anio" id="anio" required>
-              </div>
-
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Título</label>
+                <input type="text" class="form-control" value="{{ obra.titulo}}" name="titulo" id="titulo" required>
+            </div>
+            <div class="mb-3">
+                <label for="autor" class="form-label">Autor</label>
+                <input type="text" class="form-control" value="{{ obra.autor}}" name="autor" id="autor" required>
+            </div>
+                <div class="mb-3">
+                <label for="anio" class="form-label">Año</label>
+                <input type="number" class="form-control" value="{{ obra.anio}}" name="anio" id="anio" required>
+            </div>
 
             <div class="mb-3">
                 <label for="exposicion" class="form-label">Genero</label>
@@ -50,6 +48,27 @@
                 <label for="anio" class="form-label">Presupuesto</label>
                 <input type="text" class="form-control" value="{{ presformat }}" name="presupuesto" id="presupuesto" required>
             </div>
+            <div class="mb-3">
+                <label  for="foto">Poster:</label>
+                <input class="form-control" type="file" name="foto" id="foto"  accept="image/*">
+                {% if obra.foto %}
+                    <img src="{{obra.foto.url}}" height="auto" width="100px" alt="">
+                {% else %}
+                    No tiene foto
+                {% endif%}
+            </div>
+            <div class="mb-3">
+                <label for="documento">Guión: </label>
+                <input class="form-control" type="file" name="documento" id="documento"  accept="application/pdf">
+                {% if obra.documento %}
+                    <div style="height: 100%; width: 100%;" >
+                        <iframe src="{{ obra.documento.url }}" frameborder="0"></iframe>
+                    </div>
+                {% else %}
+                    No tiene documento
+                {% endif%}
+            </div>
+
 
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">

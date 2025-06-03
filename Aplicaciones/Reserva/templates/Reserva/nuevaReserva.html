@@ -22,7 +22,7 @@
     <div class="col-md-6 bg-light p-4 rounded shadow">
         <h1 class="text-center mb-4">Nueva Reserva</h1>
 
-        <form action="{% url 'guardarReserva' %}" id="formGuardarReserva" method="post">
+        <form action="{% url 'guardarReserva' %}" enctype="multipart/form-data" id="formGuardarReserva" method="post">
             {% csrf_token %}
 
             <div class="mb-3">
@@ -49,6 +49,17 @@
                 <label for="fecha" class="form-label">Fecha de reserva: </label>
                 <input type="date" class="form-control" name="fecha" id="fecha" >
             </div>
+
+            <div class="mb-3">
+                <label  for="foto">Foto de la reserva:</label>
+                <input class="form-control" type="file" name="foto" id="foto" required accept="image/*">
+            </div>
+
+            <div class="mb-3">
+                <label for="documento">Comprobante: </label>
+                <input class="form-control" type="file" name="documento" id="documento" required accept="application/pdf">
+            </div>
+
             <div class="mb-3">
                 <label for="observaciones" class="form-label">Observaciones de la reserva</label>
                 <textarea class="form-control"  name="observaciones" id="observaciones" rows="5"></textarea>
@@ -90,13 +101,21 @@
                 required: true,
                 date: true, 
                 rango: {
-                  min: "2025-05-27",
-                  max: "2025-12-31" 
+                    min: "2025-06-03",
+                    max: "2025-12-31" 
                 }
             },
             observaciones:{
                 required:true 
 
+            },
+            foto: {
+                required: true,
+                extension: "jpg|jpeg|png|gif"
+            },
+            documento: {
+                required: true,
+                extension: "pdf"
             }
         },
         messages:{
@@ -109,11 +128,19 @@
             fecha: {
                 required:"La fecha de la reserva es requerido",
                 date: "La fecha ingresada no es válida.",
-                rango: "La fecha debe estar entre 27/05/2025 y 12/31/2025."
+                rango: "La fecha debe estar entre 03/06/2025 y 12/31/2025."
             },
             observaciones:{
                 required:"La observacion de la reserva es requerido",
 
+            },
+            foto: {
+                required: "Debe subir la foto de la reserva",
+                extension: "Solo se permiten imágenes: jpg, jpeg, png, gif"
+            },
+            documento: {
+                required: "Debe subir el comporbante en PDF",
+                extension: "Solo se permite formato PDF"
             }
         }
     

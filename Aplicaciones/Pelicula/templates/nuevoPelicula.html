@@ -14,7 +14,7 @@
       <div class="col-md-6 bg-light p-4 rounded shadow">
           <h1 class="text-center mb-4">Nueva pelicula</h1>
 
-          <form action="{% url 'guardarPelicula' %}" id="formGuardarPelicula" method="post">
+            <form action="{% url 'guardarPelicula' %}" enctype="multipart/form-data" id="formGuardarPelicula" method="post">
                 {% csrf_token %}
 
                 <div class="mb-3">
@@ -42,24 +42,32 @@
                     </select>
                 </div>
 
-              
                 <div class="mb-3">
-                  <label for="anio" class="form-label">Presupuesto</label>
-                  <input type="number" class="form-control" name="presupuesto" id="presupuesto" required>
+                    <label for="anio" class="form-label">Presupuesto</label>
+                    <input type="number" class="form-control" name="presupuesto" id="presupuesto" required>
                 </div>
 
+                <div class="mb-3">
+                    <label  for="foto">Poster:</label>
+                    <input class="form-control" type="file" name="foto" id="foto" required accept="image/*">
+                </div>
+
+                <div class="mb-3">
+                    <label for="documento">Guión: </label>
+                    <input class="form-control" type="file" name="documento" id="documento" required accept="application/pdf">
+                </div>
 
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                     <a href="{% url 'indexPelicula' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
                     <button type="submit" class="btn btn-outline-success">Guardar  <i class="fa-solid fa-floppy-disk"></i></button>
                 </div>
-          </form>
-      </div>
-      <div class="col-md-3"></div>
-  </div>
+            </form>
+        </div>
+    <div class="col-md-3"></div>
+</div>
 
 
-  <script>
+<script>
     $("#formGuardarPelicula").validate({
         rules:{
             titulo:{
@@ -89,6 +97,14 @@
                 min:1000000,
                 max:1000000000
                 
+            },
+            foto: {
+                required: true,
+                extension: "jpg|jpeg|png|gif"
+            },
+            documento: {
+                required: true,
+                extension: "pdf"
             }
             
         },
@@ -118,6 +134,14 @@
                 min: "El presupuesto de la pelicula no puede ser menor a 1000000 de dolares",
                 max: "El presupuesto de la pelicula no puede ser mayor a 1000000000 de dolares",
                 
+            },
+            foto: {
+                required: "Debe subir el poster de la película",
+                extension: "Solo se permiten imágenes: jpg, jpeg, png, gif"
+            },
+            documento: {
+                required: "Debe subir el guión en PDF",
+                extension: "Solo se permite formato PDF"
             }
         }
     
