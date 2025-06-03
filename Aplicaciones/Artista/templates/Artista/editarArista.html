@@ -15,7 +15,7 @@
     <div class="col-md-6 bg-light p-4 rounded shadow">
         <h1 class="text-center mb-4">Editar Artista</h1>
 
-        <form action="{% url 'procesarEdicionArtista' artista.id %}" id="formEditarArtista" method="post">
+        <form action="{% url 'procesarEdicionArtista' artista.id %}" enctype="multipart/form-data" id="formEditarArtista" method="post">
             {% csrf_token %}
 
             <div class="mb-3">
@@ -52,6 +52,28 @@
                 </select>
             </div>
 
+            <div class="mb-3">
+                <label for="imagen">Foto del Artista: <small class="text-muted">Si no seleccionas una nueva imagen, se mantendrá la actual.</small></label>
+                <input class="form-control" type="file" name="imagen" id="imagen" accept="image/*">
+                {% if artista.imagen %}
+                    <img src="{{ artista.imagen.url }}" height="auto" width="100px" alt="Imagen del artista">
+                {% else %}
+                    No tiene imagen
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="documento">Certificación del Artista: <small class="text-muted">Si no seleccionas un nuevo documento, se mantendrá el actual.</small></label>
+                <input class="form-control" type="file" name="documento" id="documento" accept="application/pdf">
+                {% if artista.documento %}
+                    <div style="height: 100%; width: 100%;">
+                        <iframe src="{{ artista.documento.url }}" frameborder="0"></iframe>
+                    </div>
+                {% else %}
+                    No tiene documento
+                {% endif %}
+            </div>
+
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                 <a href="{% url 'listarArtistas' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
                 <button type="submit" class="btn btn-outline-primary">Actualizar Artista <i class="fa-solid fa-pen-to-square"></i></button>
@@ -62,7 +84,7 @@
 </div>
 
 <script>
-    $("#formGuardarArtista").validate({
+    $("#formEditarArtista").validate({
         rules:{
             "nombre":{
                 required:true,
@@ -77,7 +99,7 @@
             "telefono":{
                 required:true,
                 number:true,
-                maxlength:10,
+                maxlength:10
             },
             "edad":{
                 required:true,
@@ -94,29 +116,29 @@
         messages:{
             "nombre":{
                 required:"El nombre del artista es requerido",
-                minlength:"El nombre no puede tener menos de 3 letras",
-                maxlength:"El nombre no puede tener más de 50 letras"
+                minlength:"Debe tener al menos 3 caracteres",
+                maxlength:"No puede superar los 50 caracteres"
             },
             "pais":{
-                required:"El país del artista es requerido",
-                minlength:"El país no puede tener menos de 3 letras",
-                maxlength:"El país no puede tener más de 50 letras"
+                required:"El país es requerido",
+                minlength:"Debe tener al menos 3 caracteres",
+                maxlength:"No puede superar los 50 caracteres"
             },
             "telefono":{
-                required: "El teléfono del artista es requerido",
-                number: "El teléfono debe contener solo números",
-                maxlength: "El teléfono no puede exceder los 10 caracteres",
+                required: "El teléfono es requerido",
+                number: "Debe contener solo números",
+                maxlength: "Debe tener máximo 10 caracteres"
             },
             "edad":{
-                required: "La edad del artista es requerida",
+                required: "La edad es requerida",
                 number: "Debe ingresar un número válido",
-                min: "La edad mínima es 10 años",
-                max: "La edad máxima es 100 años"
+                min: "Edad mínima: 10 años",
+                max: "Edad máxima: 100 años"
             },
             "genero":{
-                required:"El género del artista es requerido",
-                minlength:"El género no puede tener menos de 3 letras",
-                maxlength:"El género no puede tener más de 20 letras"
+                required:"El género es requerido",
+                minlength:"Debe tener al menos 3 caracteres",
+                maxlength:"No puede superar los 20 caracteres"
             }
         }
     });

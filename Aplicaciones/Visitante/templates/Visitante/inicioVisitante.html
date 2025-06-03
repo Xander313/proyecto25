@@ -1,12 +1,11 @@
 {% extends 'layouts/base.html' %}  <!-- Ruta relativa a la plantilla base -->
 
-{% block title %} Inicio Visitante {% endblock title %}
+{% block title %} Inicio Visitantes {% endblock title %}
 
 <!-- CSS específico (opcional) -->
 {% block stylesheets %}
   {{ block.super }}  <!-- Mantiene los CSS de la plantilla padre -->
   <link rel="stylesheet" href="/static/assets/css/custom.css">  <!-- Ejemplo -->
-  <!-- Importación de SweetAlert2 -->
 {% endblock stylesheets %}
 
 {% block content %}
@@ -37,7 +36,7 @@
 <div class="row">
     <div class="text-end">
         <a href="nuevoVisitante" class="btn btn-outline-success text-right">
-            Agregar Visitante <i class=" fa fa-pen"></i>
+            Agregar Visitante <i class="fa fa-user-plus"></i>
         </a>
     </div>
 </div>
@@ -47,8 +46,10 @@
     <thead>
         <tr class="bg-info">
             <th>ID</th>
+            <th>IMAGEN</th>
             <th>NOMBRE</th>
             <th>CORREO ELECTRÓNICO</th>
+            <th>DOCUMENTO</th>
             <th>ACCIONES</th>
         </tr>
     </thead>
@@ -56,8 +57,26 @@
         {% for visitante in visitantes %}
             <tr>
                 <td>{{ visitante.id }}</td>
+                <td>
+                    {% if visitante.imagen %}
+                        <img src="{{ visitante.imagen.url }}" height="80px" width="80px" alt="Imagen del visitante">
+                    {% else %}
+                        No tiene imagen
+                    {% endif %}
+                </td>
                 <td>{{ visitante.nombre }}</td>
                 <td>{{ visitante.email }}</td>
+                <td>
+                    {% if visitante.documento %}
+                        <div style="height: 100%; width: 100%;">
+                            <iframe src="{{ visitante.documento.url }}" frameborder="0"></iframe>
+                        </div>
+                        <a href="{{ visitante.documento.url }}" download class="btn btn-sm btn-success mb-2">Descargar PDF</a>
+                        <a href="{{ visitante.documento.url }}" class="btn btn-sm btn-primary mb-2" target="_blank">Ver PDF</a>
+                    {% else %}
+                        No tiene documento
+                    {% endif %}
+                </td>
                 <td>
                     <a href="{% url 'editarVisitante' visitante.id %}" class="btn btn-outline-warning">
                         <i class="fa fa-pen"></i>
@@ -70,7 +89,6 @@
         {% endfor %}
     </tbody>
 </table>
-<br><br><br><br><br><br>
 
 {% endblock content %}
 

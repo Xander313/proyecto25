@@ -14,7 +14,7 @@
       <div class="col-md-6 bg-light p-4 rounded shadow">
           <h1 class="text-center mb-4">Nuevo Visitante</h1>
 
-          <form action="{% url 'guardarVisitante' %}" method="post" id="formGuardarVisitante">
+          <form action="{% url 'guardarVisitante' %}" id="formGuardarVisitante" enctype="multipart/form-data" method="post">
               {% csrf_token %}
 
               <div class="mb-3">
@@ -27,6 +27,16 @@
                   <input type="email" class="form-control" name="email" id="email" required>
               </div>
 
+              <div class="mb-3">
+                  <label for="imagen" class="form-label">Foto del Visitante</label>
+                  <input type="file" class="form-control" name="imagen" id="imagen" accept="image/*">
+              </div>
+
+              <div class="mb-3">
+                  <label for="documento" class="form-label">Documento del Visitante</label>
+                  <input type="file" class="form-control" name="documento" id="documento" accept="application/pdf">
+              </div>
+
               <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                   <a href="{% url 'indexVisitante' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
                   <button type="submit" class="btn btn-outline-success">Guardar Visitante <i class="fa-solid fa-floppy-disk"></i></button>
@@ -35,7 +45,8 @@
       </div>
       <div class="col-md-3"></div>
   </div>
-  <script>
+
+<script>
     $("#formGuardarVisitante").validate({
         rules:{
             "nombre":{
@@ -46,17 +57,33 @@
             "email":{
                 required:true,
                 email:true
+            },
+            "imagen":{
+                required:true,
+                extension:"jpg|jpeg|png|gif"
+            },
+            "documento":{
+                required:true,
+                extension:"pdf"
             }
         },
         messages:{
             "nombre":{
                 required:"El nombre del visitante es requerido.",
-                minlength:"El nombre debe tener al menos 3 caracteres.",
-                maxlength:"El nombre no puede superar los 50 caracteres."
+                minlength:"Debe tener al menos 3 caracteres.",
+                maxlength:"No puede superar los 50 caracteres."
             },
             "email":{
                 required:"El correo electrónico es requerido.",
                 email:"Por favor, ingresa un correo válido."
+            },
+            "imagen":{
+                required:"Debe subir una foto del visitante.",
+                extension:"Solo se permiten imágenes: jpg, jpeg, png, gif."
+            },
+            "documento":{
+                required:"Debe subir el documento en formato PDF.",
+                extension:"Solo se permite formato PDF."
             }
         }
     });

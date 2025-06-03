@@ -14,7 +14,7 @@
       <div class="col-md-6 bg-light p-4 rounded shadow">
           <h1 class="text-center mb-4">Agregar Nuevo Artista</h1>
 
-          <form action="{% url 'guardarArtista' %}" id="formGuardarArtista" method="post">
+          <form action="{% url 'guardarArtista' %}" id="formGuardarArtista" enctype="multipart/form-data" method="post">
               {% csrf_token %}
 
               <div class="mb-3">
@@ -49,6 +49,16 @@
                           <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
                       {% endfor %}
                   </select>
+              </div>
+
+              <div class="mb-3">
+                  <label for="imagen">Foto del Artista:</label>
+                  <input class="form-control" type="file" name="imagen" id="imagen" accept="image/*">
+              </div>
+
+              <div class="mb-3">
+                  <label for="documento">Certificación del Artista:</label>
+                  <input class="form-control" type="file" name="documento" id="documento" accept="application/pdf">
               </div>
 
               <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
@@ -88,34 +98,50 @@
                 required:true,
                 minlength:3,
                 maxlength:20
+            },
+            "imagen":{
+                required:true,
+                extension:"jpg|jpeg|png|gif"
+            },
+            "documento":{
+                required:true,
+                extension:"pdf"
             }
         },
         messages:{
             "nombre":{
                 required:"El nombre del artista es requerido",
-                minlength:"El nombre no puede tener menos de 3 letras",
-                maxlength:"El nombre no puede tener más de 50 letras"
+                minlength:"Debe tener al menos 3 caracteres",
+                maxlength:"No puede superar los 50 caracteres"
             },
             "pais":{
-                required:"El país del artista es requerido",
-                minlength:"El país no puede tener menos de 3 letras",
-                maxlength:"El país no puede tener más de 50 letras"
+                required:"El país es requerido",
+                minlength:"Debe tener al menos 3 caracteres",
+                maxlength:"No puede superar los 50 caracteres"
             },
             "telefono":{
-                required: "El teléfono del artista es requerido",
-                number: "El teléfono debe contener solo números",
-                maxlength: "El teléfono no puede exceder los 10 caracteres",
+                required: "El teléfono es requerido",
+                number: "Debe contener solo números",
+                maxlength: "Debe tener máximo 10 caracteres"
             },
             "edad":{
-                required: "La edad del artista es requerida",
+                required: "La edad es requerida",
                 number: "Debe ingresar un número válido",
-                min: "La edad mínima es 10 años",
-                max: "La edad máxima es 100 años"
+                min: "Edad mínima: 10 años",
+                max: "Edad máxima: 100 años"
             },
             "genero":{
-                required:"El género del artista es requerido",
-                minlength:"El género no puede tener menos de 3 letras",
-                maxlength:"El género no puede tener más de 20 letras"
+                required:"El género es requerido",
+                minlength:"Debe tener al menos 3 caracteres",
+                maxlength:"No puede superar los 20 caracteres"
+            },
+            "imagen":{
+                required:"Debe subir la foto del artista",
+                extension:"Solo se permiten imágenes: jpg, jpeg, png, gif"
+            },
+            "documento":{
+                required:"Debe subir la certificación en PDF",
+                extension:"Solo se permite formato PDF"
             }
         }
     });

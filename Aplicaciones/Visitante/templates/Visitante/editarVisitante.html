@@ -15,17 +15,39 @@
     <div class="col-md-6 bg-light p-4 rounded shadow">
         <h1 class="text-center mb-4">Editar Visitante</h1>
 
-        <form action="{% url 'procesarEdicionVisitante' visitante.id %}" method="post" id="formGuardarVisitante">
+        <form action="{% url 'procesarEdicionVisitante' visitante.id %}" id="formEditarVisitante" enctype="multipart/form-data" method="post">
             {% csrf_token %}
 
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
+                <label for="nombre" class="form-label">Nombre del Visitante:</label>
                 <input type="text" class="form-control" name="nombre" id="nombre" value="{{ visitante.nombre }}" required>
             </div>
 
             <div class="mb-3">
-                <label for="email" class="form-label">Correo Electrónico</label>
+                <label for="email" class="form-label">Correo Electrónico:</label>
                 <input type="email" class="form-control" name="email" id="email" value="{{ visitante.email }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="imagen">Foto del Visitante: <small class="text-muted">Si no seleccionas una nueva imagen, se mantendrá la actual.</small></label>
+                <input class="form-control" type="file" name="imagen" id="imagen" accept="image/*">
+                {% if visitante.imagen %}
+                    <img src="{{ visitante.imagen.url }}" height="auto" width="100px" alt="Imagen del visitante">
+                {% else %}
+                    No tiene imagen
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="documento">Certificación del Visitante: <small class="text-muted">Si no seleccionas un nuevo documento, se mantendrá el actual.</small></label>
+                <input class="form-control" type="file" name="documento" id="documento" accept="application/pdf">
+                {% if visitante.documento %}
+                    <div style="height: 100%; width: 100%;">
+                        <iframe src="{{ visitante.documento.url }}" frameborder="0"></iframe>
+                    </div>
+                {% else %}
+                    No tiene documento
+                {% endif %}
             </div>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
@@ -36,6 +58,7 @@
     </div>
     <div class="col-md-3"></div>
 </div>
+
 <script>
     $("#formGuardarVisitante").validate({
         rules:{

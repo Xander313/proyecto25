@@ -1,8 +1,6 @@
 from django.db import models
 from Aplicaciones.Tipo.models import Tipo
 
-
-# Create your models here.
 class Artista(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=30)
@@ -10,4 +8,9 @@ class Artista(models.Model):
     telefono = models.CharField(max_length=10)
     edad = models.CharField(max_length=5)
     genero = models.CharField(max_length=10)
-    tipo = models.ForeignKey(Tipo, on_delete=models.CASCADE)  
+    tipo = models.ForeignKey(Tipo, on_delete=models.CASCADE)
+    imagen = models.FileField(upload_to='Artistas', null=True, blank=True)  # ✅ Nueva imagen del artista
+    documento = models.FileField(upload_to='Artistas', null=True, blank=True)  # ✅ Certificación en PDF
+
+    def __str__(self):
+        return f"{self.nombre} - {self.pais}"
